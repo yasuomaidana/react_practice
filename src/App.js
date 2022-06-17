@@ -19,7 +19,7 @@ class App extends React.Component{
     <div>
      <Navbar bg="primary" variant="dark">
       <Container>
-        <Navbar.Brand href='/'>Ristorante ConFusion</Navbar.Brand>
+        <Navbar.Brand href='/'><p className='h1'>Ristorante ConFusion</p></Navbar.Brand>
       </Container>
      </Navbar>
      <Menu dishes={this.state.dishes}/>
