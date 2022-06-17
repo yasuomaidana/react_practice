@@ -6,8 +6,8 @@ import Menu from './components/MenuComponent';
 
 function App() {
   return (
-    <div className="App">
-     <Navbar bg="dark" variant="dark">
+    <div>
+     <Navbar bg="primary" variant="dark">
       <Container>
         <Navbar.Brand href='/'>Ristorante ConFusion</Navbar.Brand>
       </Container>
