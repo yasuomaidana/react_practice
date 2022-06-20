@@ -29,8 +29,7 @@ class Menu extends Component{
                         <Card.ImgOverlay className='text-start ml-5'>
                             <Card.Title><p className='h1'>{dish.name}</p></Card.Title>
                             
-                        </Card.ImgOverlay>
-                            
+                        </Card.ImgOverlay> 
                     </Card>
                 </Col>
             )
@@ -40,9 +39,7 @@ class Menu extends Component{
                 <Row>
                     {menu}
                 </Row>
-                <Row>
-                    <DetailedMenuComponent selectedDish ={this.state.selectedDish}/>
-                </Row>
+                <DetailedMenuComponent selectedDish ={this.state.selectedDish}/>
             </Container>
         );
     }
