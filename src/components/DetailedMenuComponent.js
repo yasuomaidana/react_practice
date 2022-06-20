@@ -1,8 +1,22 @@
 import { Component } from "react";
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
+import ListGroup  from "react-bootstrap/ListGroup";
 
 class ExtendedMenu extends Component{
+    renderComments(comments){
+        comments.forEach(element => {
+            console.log(element)
+        });
+        return(
+            <ListGroup variant="flush">
+                <ListGroup.Item>Cras justo odio</ListGroup.Item>
+                <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
+                <ListGroup.Item>Morbi leo risus</ListGroup.Item>
+                <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
+            </ListGroup>
+        );
+    }
 
     renderDish(dish){
         if(dish!=null){
@@ -17,8 +31,8 @@ class ExtendedMenu extends Component{
                     </Card>
                     <Card border="light">
                         <Card.Body>
-                            <Card.Title>{dish.name}</Card.Title>
-                            <Card.Text>{dish.description}</Card.Text>
+                            <Card.Title>Comments</Card.Title>
+                            {this.renderComments(dish.comments)}
                         </Card.Body>
                     </Card>
                 </Col>
