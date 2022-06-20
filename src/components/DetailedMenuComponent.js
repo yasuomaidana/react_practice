@@ -2,18 +2,26 @@ import { Component } from "react";
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import ListGroup  from "react-bootstrap/ListGroup";
+import Row  from "react-bootstrap/Row";
+import moment from 'moment';
 
 class ExtendedMenu extends Component{
+    getDate(commentDate){
+        var working_date = new Date(commentDate);
+        return moment(working_date).format("MMM, D, yyyy");
+    }
     renderComments(comments){
-        comments.forEach(element => {
-            console.log(element)
+        
+        const formattedComments = comments.map(comment => {
+            return (
+                <ListGroup.Item key={comment.id}>{comment.comment}<br/>
+                -- {comment.author}, {this.getDate(comment.date)}</ListGroup.Item>
+            );
         });
+        
         return(
             <ListGroup variant="flush">
-                <ListGroup.Item>Cras justo odio</ListGroup.Item>
-                <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-                <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
+                {formattedComments}
             </ListGroup>
         );
     }
@@ -21,21 +29,25 @@ class ExtendedMenu extends Component{
     renderDish(dish){
         if(dish!=null){
             return(
-                <Col xs={12} md={5} className="m1">
-                    <Card className="mt-4">
-                        <Card.Img width={100} src={dish.image} alt={dish.name} className="img-fluid rounded-start"/>
-                        <Card.Body>
-                            <Card.Title>{dish.name}</Card.Title>
-                            <Card.Text>{dish.description}</Card.Text>
-                        </Card.Body>
-                    </Card>
-                    <Card border="light">
-                        <Card.Body>
-                            <Card.Title>Comments</Card.Title>
-                            {this.renderComments(dish.comments)}
-                        </Card.Body>
-                    </Card>
-                </Col>
+                <Row>
+                    <Col xs={12} md={5} className="m1 mt-4">
+                        <Card>
+                            <Card.Img width={100} src={dish.image} alt={dish.name} className="img-fluid rounded-start"/>
+                            <Card.Body>
+                                <Card.Title>{dish.name}</Card.Title>
+                                <Card.Text>{dish.description}</Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col xs={12} md={5} className="m1 mt-4">
+                        <Card border="light">
+                            <Card.Body>
+                                <Card.Title>Comments</Card.Title>
+                                {this.renderComments(dish.comments)}
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
             );
         }
         else{
