@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col'
-import DetailedMenuComponent from './DetailedMenuComponent';
+import DishDetail from './DishDetailComponent';
 
 class Menu extends Component{
     
@@ -39,7 +39,7 @@ class Menu extends Component{
                 <Row>
                     {menu}
                 </Row>
-                <DetailedMenuComponent selectedDish ={this.state.selectedDish}/>
+                <DishDetail selectedDish ={this.state.selectedDish}/>
             </Container>
         );
     }
