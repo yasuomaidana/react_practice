@@ -58,7 +58,7 @@ class DishDetail extends Component{
     }
 
     render(){
-        return(this.renderDish(this.props.selectedDish));
+        return(this.renderDish(this.props.dish));
     }
 }
 
