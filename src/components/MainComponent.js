@@ -1,9 +1,9 @@
 import Container from "react-bootstrap/Container";
-import Navbar from "react-bootstrap/Navbar";
 import Menu from "./MenuComponent";
 import { DISHES } from "../shared/dishes";
 import DishDetail from "./DishDetailComponent";
 import React from "react";
+import Header from "./HeaderComponent";
 
 class Main extends React.Component {
   constructor(props) {
@@ -21,13 +21,7 @@ class Main extends React.Component {
   render() {
     return (
       <div>
-        <Navbar bg="primary" variant="dark">
-          <Container>
-            <Navbar.Brand href="/">
-              <p className="h1">Ristorante ConFusion</p>
-            </Navbar.Brand>
-          </Container>
-        </Navbar>
+        <Header/>
         <Container>
           <Menu
             dishes={this.state.dishes}
