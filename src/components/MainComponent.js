@@ -4,6 +4,7 @@ import { DISHES } from "../shared/dishes";
 import DishDetail from "./DishDetailComponent";
 import React from "react";
 import Header from "./HeaderComponent";
+import Footer from "./FooterComponent";
 
 class Main extends React.Component {
   constructor(props) {
@@ -31,6 +32,7 @@ class Main extends React.Component {
             dish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]}
           />
         </Container>
+        <Footer/>
       </div>
     );
   }
