@@ -1,32 +1,29 @@
-import { Component } from "react";
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import ListGroup  from "react-bootstrap/ListGroup";
 import Row  from "react-bootstrap/Row";
 import moment from 'moment';
 
-class DishDetail extends Component{
-    getDate(commentDate){
-        var working_date = new Date(commentDate);
-        return moment(working_date).format("MMM, D, yyyy");
-    }
-    renderComments(comments){
-        
-        const formattedComments = comments.map(comment => {
-            return (
-                <ListGroup.Item key={comment.id}>{comment.comment}<br/>
-                -- {comment.author}, {this.getDate(comment.date)}</ListGroup.Item>
-            );
-        });
-        
-        return(
-            <ListGroup variant="flush">
-                {formattedComments}
-            </ListGroup>
+const getDate = (commentDate)=>{
+    var working_date = new Date(commentDate);
+    return moment(working_date).format("MMM, D, yyyy");
+}
+const renderComments = (comments)=>{
+    const formattedComments = comments.map(comment => {
+        return (
+            <ListGroup.Item key={comment.id}>{comment.comment}<br/>
+            -- {comment.author}, {getDate(comment.date)}</ListGroup.Item>
         );
-    }
+    });
+    
+    return(
+        <ListGroup variant="flush">
+            {formattedComments}
+        </ListGroup>
+    );
+}
 
-    renderDish(dish){
+const renderDish = (dish)=>{
         if(dish!=null){
             return(
                 <Row>
@@ -43,7 +40,7 @@ class DishDetail extends Component{
                         <Card border="light">
                             <Card.Body>
                                 <Card.Title>Comments</Card.Title>
-                                {this.renderComments(dish.comments)}
+                                {renderComments(dish.comments)}
                             </Card.Body>
                         </Card>
                     </Col>
@@ -57,9 +54,9 @@ class DishDetail extends Component{
         }
     }
 
-    render(){
-        return(this.renderDish(this.props.dish));
-    }
+const DishDetail = (props) =>
+{
+    return(renderDish(props.dish));
 }
 
 export default DishDetail;
