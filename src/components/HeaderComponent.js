@@ -1,11 +1,9 @@
-import { Component } from "react";
 import { Row } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 
-class Header extends Component {
-  render() {
+const Header = () => {
     return (
       <>
         <Navbar variant="dark">
@@ -30,6 +28,5 @@ class Header extends Component {
       </>
     );
   }
-}
 
 export default Header
