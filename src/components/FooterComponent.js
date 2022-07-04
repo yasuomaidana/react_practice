@@ -5,7 +5,7 @@ import {AiFillGooglePlusCircle,AiFillLinkedin,AiFillTwitterCircle,AiFillYoutube}
 import {BsFacebook} from 'react-icons/bs';
 const Footer = (props) => {
   return (
-    <div className="footer">
+    <div className="footer mt-4">
       <Container>
         <Row className="justify-content-center">
           <Col xs={4} sm={2} offset={1}>
