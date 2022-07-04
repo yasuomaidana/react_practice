@@ -17,7 +17,7 @@ class Header extends Component {
         </Navbar>
         <Row>
           <Col xs={6} sm={12}>
-            <div className="mt-4 p-5 text-white rounded jumbotron row-header">
+            <div className="p-5 text-white rounded jumbotron row-header">
               <h1>Ristorante con Fusion</h1>
               <p>
                 We take inspiration from the World's best cuisines, and create a
