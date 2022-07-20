@@ -30,6 +30,7 @@ class Main extends React.Component {
             <Routes>
               <Route path="/home" element={<Home/>}></Route>
               <Route path="/menu" element={<Menu dishes={this.state.dishes}/>}></Route>
+              <Route path="*" element={<Home />} />
             </Routes>
           </BrowserRouter> 
         </Container>
