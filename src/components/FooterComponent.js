@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone, faFax, faEnvelope, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons';
 import {AiFillGooglePlusCircle,AiFillLinkedin,AiFillTwitterCircle,AiFillYoutube} from 'react-icons/ai';
 import {BsFacebook} from 'react-icons/bs';
+import { Link } from "react-router-dom";
 const Footer = (props) => {
   return (
     <div className="footer mt-4">
@@ -12,16 +13,16 @@ const Footer = (props) => {
             <h5>Links</h5>
             <ul className="list-unstyled">
               <li>
-                <a href="/home">Home</a>
+                <Link to="/home">Home</Link>
               </li>
               <li>
-                <a href="/#">About</a>
+                <Link to="/about">About</Link>
               </li>
               <li>
-                <a href="/menu">Menu</a>
+                <Link to="/menu">Menu</Link>
               </li>
               <li>
-                <a href="contactus.html">Contact</a>
+                <Link to="/contact">Contact</Link>
               </li>
             </ul>
           </Col>
