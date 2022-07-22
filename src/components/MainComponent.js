@@ -2,7 +2,6 @@ import Container from "react-bootstrap/Container";
 import Menu from "./MenuComponent";
 import Home from "./HomeComponent";
 import { DISHES } from "../shared/dishes";
-//import DishDetail from "./DishDetailComponent";
 import React from "react";
 import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
@@ -23,19 +22,19 @@ class Main extends React.Component {
 
   render() {
     return (
-      <div>
-        <Header />
-        <Container>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/home" element={<Home/>}></Route>
-              <Route path="/menu" element={<Menu dishes={this.state.dishes}/>}></Route>
-              <Route path="*" element={<Home />} />
-            </Routes>
-          </BrowserRouter> 
-        </Container>
-        <Footer />
-      </div>
+      <>
+        <BrowserRouter>
+          <Header/>
+          <Container>
+              <Routes>
+                <Route path="/home" element={<Home/>}></Route>
+                <Route path="/menu" element={<Menu dishes={this.state.dishes}/>}></Route>
+                <Route path="*" element={<Home />} />
+              </Routes>
+          </Container>
+          <Footer />
+        </BrowserRouter> 
+      </>
     );
   }
 }
