@@ -50,7 +50,7 @@ class Header extends Component {
                   <NavLink className={"nav-link me-2"} to={"/home"} style={{display:"inline"}}><FontAwesomeIcon icon={faHome} size="lg"/>Home</NavLink>
                   <NavLink className={"nav-link me-2"} to={"/about"} style={{display:"inline"}}><FontAwesomeIcon icon={faInfo} size="lg"/>About us</NavLink>
                   <NavLink className={"nav-link me-2"} to={"/menu"} style={{display:"inline"}}><FontAwesomeIcon icon={faList} size="lg"/>Menu</NavLink>
-                  <NavLink className={"nav-link me-2"} to={"/contact"} style={{display:"inline"}}><FontAwesomeIcon icon={faAddressCard} size="lg"/>Contact us us</NavLink>
+                  <NavLink className={"nav-link me-2"} to={"/contact"} style={{display:"inline"}}><FontAwesomeIcon icon={faAddressCard} size="lg"/>Contact us</NavLink>
                 </Nav>
               </div>
             </Collapse>
