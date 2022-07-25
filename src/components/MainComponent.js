@@ -5,7 +5,8 @@ import { DISHES } from "../shared/dishes";
 import React from "react";
 import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
-import {BrowserRouter,Routes,Route} from "react-router-dom";
+import {BrowserRouter,Routes,Route, Navigate} from "react-router-dom";
+import Contact from "./ContactComponent";
 
 class Main extends React.Component {
   constructor(props) {
@@ -29,7 +30,8 @@ class Main extends React.Component {
               <Routes>
                 <Route path="/home" element={<Home/>}></Route>
                 <Route path="/menu" element={<Menu dishes={this.state.dishes}/>}></Route>
-                <Route path="*" element={<Home />} />
+                <Route path="/contact" element={<Contact/>}></Route>
+                <Route path="*" element={<Navigate to="/home" replace />} />
               </Routes>
           </Container>
           <Footer />
