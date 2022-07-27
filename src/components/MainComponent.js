@@ -7,6 +7,7 @@ import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
 import {BrowserRouter,Routes,Route, Navigate} from "react-router-dom";
 import Contact from "./ContactComponent";
+import DishDetail from "./DishDetailComponent";
 
 class Main extends React.Component {
   constructor(props) {
@@ -29,7 +30,11 @@ class Main extends React.Component {
           <Container>
               <Routes>
                 <Route path="/home" element={<Home/>}></Route>
-                <Route path="/menu" element={<Menu dishes={this.state.dishes}/>}></Route>
+                <Route path="/menu" element={
+                <>
+                  <Menu dishes={this.state.dishes} onClick={(dishId)=>this.onDishSelect(dishId)}/>
+                  <DishDetail dish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]}/>
+                </>}></Route>
                 <Route path="/contact" element={<Contact/>}></Route>
                 <Route path="*" element={<Navigate to="/home" replace />} />
               </Routes>
