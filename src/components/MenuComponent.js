@@ -1,9 +1,14 @@
-import React from "react";
+import React,{useState} from "react";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 
+import DishDetail from "./DishDetailComponent";
+
 const RenderDishCard = ({dish})=> {
+
+
+
   return (
     <Card>
       <Card.Img
@@ -22,11 +27,27 @@ const RenderDishCard = ({dish})=> {
 }
 
 const Menu = (props) => {
+
+  const [dishId, setDishId] = useState(-1);
+  
+  const onDishSelect = (dishId) => {
+    setDishId(dishId)
+  }
+
+  const renderDishDetail = (dishId)=>{
+    if (dishId>-1){
+      return <Row><DishDetail dish={props.dishes.filter((dish) => dish.id === dishId)[0]}/></Row>;
+    }
+    else {
+      return <></>
+    }
+
+  }
   const menu = props.dishes.map((dish) => {
     return (
       <Col
         key={dish.id}
-        onClick={() => props.onClick(dish.id)}
+        onClick={() => onDishSelect(dish.id)}
         xs={12}
         md={5}
         className="m1 mt-4"
@@ -35,7 +56,10 @@ const Menu = (props) => {
       </Col>
     );
   });
-  return <Row>{menu}</Row>;
+  return <>
+            <Row>{menu}</Row>
+            {renderDishDetail(dishId)}
+         </>;
 };
 
 export default Menu;
