@@ -45,7 +45,7 @@ const renderDish = (dish) => {
           <Card border="light">
             <Card.Body>
               <Card.Title>Comments</Card.Title>
-              {renderComments(dish.comments)}
+              {renderComments([])}
             </Card.Body>
           </Card>
         </Col>
