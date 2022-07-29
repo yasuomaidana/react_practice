@@ -1,26 +1,38 @@
 import Container from "react-bootstrap/Container";
+import {BrowserRouter,Routes,Route, Navigate} from "react-router-dom";
+import React from "react";
+
 import Menu from "./MenuComponent";
 import Home from "./HomeComponent";
-import { DISHES } from "../shared/dishes";
-import React from "react";
 import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
-import {BrowserRouter,Routes,Route, Navigate} from "react-router-dom";
 import Contact from "./ContactComponent";
-import DishDetail from "./DishDetailComponent";
+
+import { DISHES } from "../shared/dishes";
+import { COMMENTS } from "../shared/comments";
+import { LEADERS } from "../shared/leaders";
+import { PROMOTIONS } from "../shared/promotions";
 
 class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       dishes: DISHES,
-      selectedDish: null
+      comments:COMMENTS,
+      promotions:PROMOTIONS,
+      leaders:LEADERS,
     };
   }
 
-  onDishSelect(dishId) {
-    this.setState({ selectedDish: dishId });
+  renderHome = ()=>{
+    return( 
+    <Home dish={this.state.dishes.filter(dish=>dish.featured)[0]}
+          promotion={this.state.promotions.filter(promo=>promo.featured)[0]}
+          leader={this.state.leaders.filter(leader=>leader.featured)[0]}
+    />);
   }
+
+  renderMenu = () => {return(<Menu dishes={this.state.dishes} />);}
 
   render() {
     return (
@@ -29,12 +41,8 @@ class Main extends React.Component {
           <Header/>
           <Container>
               <Routes>
-                <Route path="/home" element={<Home/>}></Route>
-                <Route path="/menu" element={
-                <>
-                  <Menu dishes={this.state.dishes} onClick={(dishId)=>this.onDishSelect(dishId)}/>
-                  <DishDetail dish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]}/>
-                </>}></Route>
+                <Route path="/home" element={this.renderHome()}></Route>
+                <Route path="/menu" element={this.renderMenu()}></Route>
                 <Route path="/contact" element={<Contact/>}></Route>
                 <Route path="*" element={<Navigate to="/home" replace />} />
               </Routes>
