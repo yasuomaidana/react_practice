@@ -1,8 +1,10 @@
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
+import { Breadcrumb } from "react-bootstrap";
 import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
 import moment from "moment";
+import { Link,useParams } from "react-router-dom";
 
 const getDate = (commentDate) => {
   var working_date = new Date(commentDate);
@@ -23,7 +25,7 @@ const renderComments = (comments) => {
   return <ListGroup variant="flush">{formattedComments}</ListGroup>;
 };
 
-const renderDish = (dish) => {
+const renderDish = (dish,comments) => {
   if (dish != null) {
     return (
       <Row>
@@ -45,7 +47,7 @@ const renderDish = (dish) => {
           <Card border="light">
             <Card.Body>
               <Card.Title>Comments</Card.Title>
-              {renderComments([])}
+              {renderComments(comments)}
             </Card.Body>
           </Card>
         </Col>
@@ -57,7 +59,9 @@ const renderDish = (dish) => {
 };
 
 const DishDetail = (props) => {
-  return renderDish(props.dish);
+  const { dishId } = useParams();
+  return renderDish(props.dishes.filter((dish) => dish.id === parseInt(dishId,10))[0] 
+  ,props.comments.filter((comment) => comment.dishId === parseInt(dishId,10)));
 };
 
 export default DishDetail;
