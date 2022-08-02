@@ -7,6 +7,7 @@ import Home from "./HomeComponent";
 import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
 import Contact from "./ContactComponent";
+import DishDetail from "./DishDetailComponent";
 
 import { DISHES } from "../shared/dishes";
 import { COMMENTS } from "../shared/comments";
@@ -32,7 +33,7 @@ class Main extends React.Component {
     />);
   }
 
-  renderMenu = () => {return(<Menu dishes={this.state.dishes} />);}
+  renderMenu = () => {return(<Menu dishes={this.state.dishes} />);};
 
   render() {
     return (
@@ -42,7 +43,8 @@ class Main extends React.Component {
           <Container>
               <Routes>
                 <Route path="/home" element={this.renderHome()}></Route>
-                <Route path="/menu" element={this.renderMenu()}></Route>
+                <Route exact path="/menu" element={this.renderMenu()}></Route>
+                <Route path="/menu/:dishId" element={<DishDetail dishes={this.state.dishes} comments={this.state.comments}/>}></Route>
                 <Route path="/contact" element={<Contact/>}></Route>
                 <Route path="*" element={<Navigate to="/home" replace />} />
               </Routes>
