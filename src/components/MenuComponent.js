@@ -1,53 +1,38 @@
-import React,{useState} from "react";
+import React from "react";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
+import Breadcrumb from "react-bootstrap/Breadcrumb";
 
-import DishDetail from "./DishDetailComponent";
+import { Link } from "react-router-dom";
+import { BreadcrumbItem, Container } from "react-bootstrap";
 
 const RenderDishCard = ({dish})=> {
-
-
-
   return (
     <Card>
-      <Card.Img
-        width={100}
-        src={dish.image}
-        alt={dish.name}
-        className="img-fluid rounded-start"
-      />
-      <Card.ImgOverlay className="text-start ml-5">
-        <Card.Title>
-          <p className="h1">{dish.name}</p>
-        </Card.Title>
-      </Card.ImgOverlay>
+      <Link to={`/menu/${dish.id}`}>
+        <Card.Img
+          width={100}
+          src={dish.image}
+          alt={dish.name}
+          className="img-fluid rounded-start"
+        />
+        <Card.ImgOverlay className="text-start ml-5">
+          <Card.Title>
+            <p className="h1">{dish.name}</p>
+          </Card.Title>
+        </Card.ImgOverlay>
+      </Link>
     </Card>
   );
 }
 
 const Menu = (props) => {
 
-  const [dishId, setDishId] = useState(-1);
-  
-  const onDishSelect = (dishId) => {
-    setDishId(dishId)
-  }
-
-  const renderDishDetail = (dishId)=>{
-    if (dishId>-1){
-      return <Row><DishDetail dish={props.dishes.filter((dish) => dish.id === dishId)[0]}/></Row>;
-    }
-    else {
-      return <></>
-    }
-
-  }
   const menu = props.dishes.map((dish) => {
     return (
       <Col
         key={dish.id}
-        onClick={() => onDishSelect(dish.id)}
         xs={12}
         md={5}
         className="m1 mt-4"
@@ -56,10 +41,17 @@ const Menu = (props) => {
       </Col>
     );
   });
-  return <>
+  return <Container>
+            <Breadcrumb>
+              <BreadcrumbItem href={"/home"}>Home</BreadcrumbItem>
+              <BreadcrumbItem active>Menu</BreadcrumbItem>
+            </Breadcrumb>
+            <Row xs={12}>
+              <h3>Menu</h3>
+              <hr/>
+            </Row>
             <Row>{menu}</Row>
-            {renderDishDetail(dishId)}
-         </>;
+         </Container>;
 };
 
 export default Menu;
