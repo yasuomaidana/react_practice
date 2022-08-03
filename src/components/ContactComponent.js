@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row } from 'react-bootstrap';
+import { Container, Row,BreadcrumbItem,Breadcrumb } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone, faFax, faEnvelope} from '@fortawesome/free-solid-svg-icons';
 import {BsSkype} from 'react-icons/bs'
@@ -7,6 +7,14 @@ import {BsSkype} from 'react-icons/bs'
 function Contact(props) {
     return(
         <Container>
+            <Breadcrumb>
+              <BreadcrumbItem href={"/home"}>Home</BreadcrumbItem>
+              <BreadcrumbItem active>Contact</BreadcrumbItem>
+            </Breadcrumb>
+            <Row xs={12}>
+              <h3>Contact</h3>
+              <hr/>
+            </Row>
             <Row className="row-content">
                 <div className="col-12">
                 <h3>Location Information</h3>
