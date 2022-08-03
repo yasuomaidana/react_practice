@@ -13,6 +13,7 @@ import { DISHES } from "../shared/dishes";
 import { COMMENTS } from "../shared/comments";
 import { LEADERS } from "../shared/leaders";
 import { PROMOTIONS } from "../shared/promotions";
+import About from "./AboutComponent";
 
 class Main extends React.Component {
   constructor(props) {
@@ -46,6 +47,7 @@ class Main extends React.Component {
                 <Route exact path="/menu" element={this.renderMenu()}></Route>
                 <Route path="/menu/:dishId" element={<DishDetail dishes={this.state.dishes} comments={this.state.comments}/>}></Route>
                 <Route path="/contact" element={<Contact/>}></Route>
+                <Route path="/about" element={<About leaders={this.state.leaders}/>}></Route>
                 <Route path="*" element={<Navigate to="/home" replace />} />
               </Routes>
           </Container>
