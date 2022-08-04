@@ -1,5 +1,5 @@
 import React from 'react';
-import { Breadcrumb, BreadcrumbItem, Card, ListGroup } from 'react-bootstrap';
+import { Breadcrumb, BreadcrumbItem, Card, ListGroup,Container,Row, Col } from 'react-bootstrap';
 
 function About(props) {
 
@@ -10,8 +10,8 @@ function About(props) {
     });
 
     return(
-        <div className="container">
-            <div className="row">
+        <Container>
+            <Row>
                 <Breadcrumb>
                     <BreadcrumbItem href="/home">Home</BreadcrumbItem>
                     <BreadcrumbItem active>About Us</BreadcrumbItem>
@@ -20,14 +20,14 @@ function About(props) {
                     <h3>About Us</h3>
                     <hr />
                 </div>                
-            </div>
-            <div className="row row-content">
-                <div className="col-12 col-md-6">
+            </Row>
+            <Row className="row-content">
+                <Col md={6}>
                     <h2>Our History</h2>
                     <p>Started in 2010, Ristorante con Fusion quickly established itself as a culinary icon par excellence in Hong Kong. With its unique brand of world fusion cuisine that can be found nowhere else, it enjoys patronage from the A-list clientele in Hong Kong.  Featuring four of the best three-star Michelin chefs in the world, you never know what will arrive on your plate the next time you visit us.</p>
                     <p>The restaurant traces its humble beginnings to <em>The Frying Pan</em>, a successful chain started by our CEO, Mr. Peter Pan, that featured for the first time the world's best cuisines in a pan.</p>
-                </div>
-                <div className="col-12 col-md-5">
+                </Col>
+                <Col md={6} xs={12}>
                     <Card>
                         <Card.Header className="bg-primary text-white">Facts At a Glance</Card.Header>
                         <Card.Body>
@@ -43,12 +43,12 @@ function About(props) {
                             </dl>
                         </Card.Body>
                     </Card>
-                </div>
-                <div className="col-12">
+                </Col>
+                <Col xs={12}>
                     <Card>
                         <Card.Body className="bg-faded">
-                            <blockquote className="blockquote">
-                                <p className="mb-0">You better cut the pizza in four pieces because
+                            <blockquote className="blockquote text-end">
+                                <p className="mb-3">You better cut the pizza in four pieces because
                                     I'm not hungry enough to eat six.</p>
                                 <footer className="blockquote-footer">Yogi Berra,
                                 <cite title="Source Title">The Wit and Wisdom of Yogi Berra,
@@ -57,19 +57,19 @@ function About(props) {
                             </blockquote>
                         </Card.Body>
                     </Card>
-                </div>
-            </div>
-            <div className="row row-content">
-                <div className="col-12">
+                </Col>
+            </Row>
+            <Row className="row-content">
+                <Col xs={12}>
                     <h2>Corporate Leadership</h2>
-                </div>
-                <div className="col-12">
+                </Col>
+                <Col xs={12}>
                 <ListGroup.Item >
                 {leaders}
                 </ListGroup.Item>
-                </div>
-            </div>
-        </div>
+                </Col>
+            </Row>
+        </Container>
     );
 }
 
