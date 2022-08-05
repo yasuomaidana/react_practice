@@ -1,11 +1,24 @@
 import React from 'react';
-import { Breadcrumb, BreadcrumbItem, Card, ListGroup,Container,Row, Col } from 'react-bootstrap';
+import { Breadcrumb, BreadcrumbItem, Card, ListGroup,Container,Row, Col, Image } from 'react-bootstrap';
 
 function About(props) {
 
+    const renderLeaderCard = (leader) =>{
+        return(
+            <Row className="pt-3">
+                <Col xs={3} sm={2} md={1}><Image className="pt-2" fluid src={leader.image} alt={leader.name}/></Col>
+                <Col xs={9} sm={10} md={11} className="ps-2">
+                    <Card.Title>{leader.name}</Card.Title>
+                    <Card.Subtitle>{leader.designation}</Card.Subtitle>
+                    <Card.Text>{leader.description}</Card.Text>
+                </Col>
+            </Row>);
+    }
     const leaders = props.leaders.map((leader) => {
         return (
-            <p>Leader {leader.name}</p>
+            <ListGroup.Item key={leader.id}>
+                {renderLeaderCard(leader)}
+            </ListGroup.Item>
         );
     });
 
@@ -64,9 +77,7 @@ function About(props) {
                     <h2>Corporate Leadership</h2>
                 </Col>
                 <Col xs={12}>
-                <ListGroup.Item >
-                {leaders}
-                </ListGroup.Item>
+                    {leaders}
                 </Col>
             </Row>
         </Container>
