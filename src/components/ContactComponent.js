@@ -1,10 +1,95 @@
 import React, {Component} from 'react';
-import { Container, Row, BreadcrumbItem, Breadcrumb, Form, Button } from 'react-bootstrap';
+import { Container, Row, BreadcrumbItem, Breadcrumb, Form, Button, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone, faFax, faEnvelope} from '@fortawesome/free-solid-svg-icons';
 import {BsSkype} from 'react-icons/bs'
 
 class Contact extends Component{
+
+    constructor(props){
+        super(props);
+        this.state = {
+            firstname:'',
+            lastname:'',
+            telnum:'',
+            agree:false,
+            contactType:'Tel.',
+            message:''
+        }
+    }
+
+    input(type,placeholder,name,defaultValue){
+        return (
+          <Form.Group as={Row} className="mt-2">
+            <Form.Label htmlFor={name} as={Col} md={2}>
+              {placeholder}
+            </Form.Label>
+            <Col md={10}>
+              <Form.Control
+                type={type}
+                id={name}
+                name={name}
+                placeholder={placeholder}
+                defaultValue={defaultValue}
+              />
+            </Col>
+          </Form.Group>
+        );
+    }
+
+    contactForm(){
+        return (
+          <Row className='mt-4'>
+            <Col xs={12}>
+              <h3>Send us your feedback</h3>
+            </Col>
+            <Col xs={12} md={9}>
+              <Form>
+                {this.input("text", "First Name", "firstname", "")}
+                {this.input("text", "Last Name", "lastname", "")}
+                {this.input("tel", "Contact tel", "telnum", "")}
+                {this.input("email", "Email", "email", "")}
+                <Form.Group as={Row} className="mt-2">
+                  <Col md={{ span: 6, offset: 2 }}>
+                    <Form.Check
+                      type="checkbox"
+                      name="agree"
+                      label={<strong>May we contact you?</strong>}
+                      checked={this.state.agree}
+                    />
+                  </Col>
+                  <Col md={{ span: 3, offset: 1 }}>
+                    <Form.Select defaultValue={this.state.contactType}>
+                      <option>Tel.</option>
+                      <option>Email</option>
+                    </Form.Select>
+                  </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mt-2">
+                    <Form.Label htmlFor="comment" as={Col}>
+                        Your feedback
+                    </Form.Label>
+                    <Col md={10}>
+                        <Form.Control
+                        as="textarea"
+                        placeholder="Leave a message here"
+                        rows={12}
+                        id="comment"
+                        name="comment"
+                        defaultValue={this.state.message}
+                        />
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mt-2">
+                  <Col md={{ span: 10, offset: 2 }}>
+                    <Button type="submit" primary>Send feedback</Button>
+                  </Col>
+                </Form.Group>
+              </Form>
+            </Col>
+          </Row>
+        );
+    }
 
     render(){
         return(
@@ -43,6 +128,7 @@ class Contact extends Component{
                         </div>
                     </div>
                 </Row>
+                {this.contactForm()}
             </Container>
         );
     }
