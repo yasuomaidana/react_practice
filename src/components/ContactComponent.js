@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { Container, Row, BreadcrumbItem, Breadcrumb, Form, Button, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone, faFax, faEnvelope} from '@fortawesome/free-solid-svg-icons';
 import {BsSkype} from 'react-icons/bs'
 
-class Contact extends Component{
+class Contact extends React.Component{
 
     constructor(props){
         super(props);
@@ -15,7 +15,22 @@ class Contact extends Component{
             agree:false,
             contactType:'Tel.',
             message:''
-        }
+        };
+
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(event){
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked:target.value;
+        const name = target.name;
+        this.setState({[name]: value})
+    }
+
+    handleSubmit(event){
+        console.log("Submited "+ JSON.stringify(this.state));
+        event.preventDefault();
     }
 
     input(type,placeholder,name,defaultValue){
@@ -44,7 +59,7 @@ class Contact extends Component{
               <h3>Send us your feedback</h3>
             </Col>
             <Col xs={12} md={9}>
-              <Form>
+              <Form onSubmit={this.handleSubmit} onChange={this.handleChange}>
                 {this.input("text", "First Name", "firstname", "")}
                 {this.input("text", "Last Name", "lastname", "")}
                 {this.input("tel", "Contact tel", "telnum", "")}
@@ -55,7 +70,7 @@ class Contact extends Component{
                       type="checkbox"
                       name="agree"
                       label={<strong>May we contact you?</strong>}
-                      checked={this.state.agree}
+                      defaultChecked={this.state.agree}
                     />
                   </Col>
                   <Col md={{ span: 3, offset: 1 }}>
@@ -82,7 +97,7 @@ class Contact extends Component{
                 </Form.Group>
                 <Form.Group as={Row} className="mt-2">
                   <Col md={{ span: 10, offset: 2 }}>
-                    <Button type="submit" primary>Send feedback</Button>
+                    <Button type="submit">Send feedback</Button>
                   </Col>
                 </Form.Group>
               </Form>
