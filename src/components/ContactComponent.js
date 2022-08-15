@@ -12,13 +12,55 @@ class Contact extends React.Component{
             firstname:'',
             lastname:'',
             telnum:'',
+            email:'',
             agree:false,
             contactType:'Tel.',
-            message:''
+            message:'',
+            touched:{
+              firstname:false,
+              lastname:false,
+              telnum:false,
+              email:false,
+            }
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleBlur = (field) => (event) =>{
+      this.setState({
+        touched:{...this.state.touched,[field]:true}
+      });
+    }
+
+    validate(firstname,lastname,telnum,email){
+      const errors = {
+        firstname:'',
+        lastname:'',
+        telnum:'',
+        email:'',
+      };
+
+      if(this.state.touched.firstname && firstname.length<3){
+          errors.firstname = "Firstname should be >= 3 characters";
+      }
+
+      if(this.state.touched.lastname && lastname.length<3){
+        errors.lastname = "Lastname should be >= 3 characters";
+      }
+
+      const reg = /^\d+$/
+
+      if(this.state.touched.telnum && !reg.test(telnum)){
+        errors.telnum = "Tel. number should only contain numbers";
+      }
+
+      if(this.state.touched.email && email.split('').filter(x=>x==='@').length!==1){
+        errors.email = "Email should contain a @";
+      }
+
+      return errors;
     }
 
     handleChange(event){
@@ -33,7 +75,7 @@ class Contact extends React.Component{
         event.preventDefault();
     }
 
-    input(type,placeholder,name,defaultValue){
+    input(type,placeholder,name,defaultValue,error){
         return (
           <Form.Group as={Row} className="mt-2">
             <Form.Label htmlFor={name} as={Col} md={2}>
@@ -46,13 +88,18 @@ class Contact extends React.Component{
                 name={name}
                 placeholder={placeholder}
                 defaultValue={defaultValue}
+                isValid={this.state.touched[name] && error===''}
+                isInvalid={this.state.touched[name] && error!==''}
+                onBlur={this.handleBlur(name)} 
               />
+              <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
             </Col>
           </Form.Group>
         );
     }
 
     contactForm(){
+      const errors =  this.validate(this.state.firstname,this.state.lastname,this.state.telnum,this.state.email);
         return (
           <Row className='mt-4'>
             <Col xs={12}>
@@ -60,10 +107,10 @@ class Contact extends React.Component{
             </Col>
             <Col xs={12} md={9}>
               <Form onSubmit={this.handleSubmit} onChange={this.handleChange}>
-                {this.input("text", "First Name", "firstname", "")}
-                {this.input("text", "Last Name", "lastname", "")}
-                {this.input("tel", "Contact tel", "telnum", "")}
-                {this.input("email", "Email", "email", "")}
+                {this.input("text", "First Name", "firstname", "",errors.firstname)}
+                {this.input("text", "Last Name", "lastname", "",errors.lastname)}
+                {this.input("tel", "Contact tel", "telnum", "",errors.telnum)}
+                {this.input("email", "Email", "email", "",errors.email)}
                 <Form.Group as={Row} className="mt-2">
                   <Col md={{ span: 6, offset: 2 }}>
                     <Form.Check
