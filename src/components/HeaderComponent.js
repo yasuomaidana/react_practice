@@ -52,6 +52,43 @@ class Header extends Component {
     event.preventDefault();
   }
 
+  login(){
+    return(
+    <Navbar className="justify-content-end">
+      <Nav>
+        <Button onClick={this.toggleModal} variant="outline-primary"><FontAwesomeIcon icon={faRightToBracket}/> Login</Button>
+      </Nav>
+    </Navbar>);
+  }
+
+  menu(){
+    return(<Collapse in={this.state.isNavOpen} className="ps-2">
+    <div>
+      <Nav>
+        <NavLink className={"nav-link me-2"} to={"/home"} style={{display:"inline"}}><FontAwesomeIcon icon={faHome} size="lg"/>Home</NavLink>
+        <NavLink className={"nav-link me-2"} to={"/about"} style={{display:"inline"}}><FontAwesomeIcon icon={faInfo} size="lg"/>About us</NavLink>
+        <NavLink className={"nav-link me-2"} to={"/menu"} style={{display:"inline"}}><FontAwesomeIcon icon={faList} size="lg"/>Menu</NavLink>
+        <NavLink className={"nav-link me-2"} to={"/contact"} style={{display:"inline"}}><FontAwesomeIcon icon={faAddressCard} size="lg"/>Contact us</NavLink>
+      </Nav>
+    </div>
+  </Collapse>);
+  }
+
+  navBarOrder(){
+    let small = window.innerWidth < 760;
+    if(small){
+      return(<>
+      {this.login()}
+      <div style={{flexBasis: "100%",height: "0"}}/>
+      {this.menu()}</>);
+    }
+    else{
+      return(<>
+      {this.menu()}
+      {this.login()}
+      </>);
+    }
+  }
   render(){
     return (
       <>
@@ -62,22 +99,7 @@ class Header extends Component {
               <img src="assets/images/logo.png" height={30} width={41}
               alt="Ristorante Con Fusion"/>
             </Navbar.Brand>
-            {window.innerWidth < 760 ? <div style={{flexBasis: "100%",height: "0"}}></div>:<></>}
-            <Collapse in={this.state.isNavOpen} className="ps-2">
-              <div>
-                <Nav>
-                  <NavLink className={"nav-link me-2"} to={"/home"} style={{display:"inline"}}><FontAwesomeIcon icon={faHome} size="lg"/>Home</NavLink>
-                  <NavLink className={"nav-link me-2"} to={"/about"} style={{display:"inline"}}><FontAwesomeIcon icon={faInfo} size="lg"/>About us</NavLink>
-                  <NavLink className={"nav-link me-2"} to={"/menu"} style={{display:"inline"}}><FontAwesomeIcon icon={faList} size="lg"/>Menu</NavLink>
-                  <NavLink className={"nav-link me-2"} to={"/contact"} style={{display:"inline"}}><FontAwesomeIcon icon={faAddressCard} size="lg"/>Contact us</NavLink>
-                </Nav>
-              </div>
-            </Collapse>
-            <Navbar.Collapse className="justify-content-end">
-              <Nav>
-                <Button onClick={this.toggleModal} variant="outline-primary"><FontAwesomeIcon icon={faRightToBracket}/> Login</Button>
-              </Nav>
-            </Navbar.Collapse>
+            {this.navBarOrder()}
           </Container>
         </Navbar>
         <Row className="p-5 text-white rounded jumbotron row-header">
