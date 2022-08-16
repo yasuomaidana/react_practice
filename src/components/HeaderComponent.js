@@ -1,11 +1,14 @@
-import {Nav, Row } from "react-bootstrap";
+import {FormControl, FormGroup, FormLabel, Nav, Row } from "react-bootstrap";
 import Collapse from "react-bootstrap/Collapse";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAddressCard, faHome, faInfo, faList } from "@fortawesome/free-solid-svg-icons";
+import { faAddressCard, faHome, faInfo, faList, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import NavbarToggle from "react-bootstrap/esm/NavbarToggle";
 import { Component } from "react";
 
@@ -13,9 +16,12 @@ class Header extends Component {
   constructor(props){
     super(props);
     this.state = {
-      isNavOpen: false
+      isNavOpen: false,
+      isModalOpen: false
     };
     this.toggleNav = this.toggleNav.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
   componentDidMount() {
@@ -33,6 +39,19 @@ class Header extends Component {
   toggleNav(){
     this.setState({isNavOpen:!this.state.isNavOpen});
   }
+
+  toggleModal(){
+    this.setState({isModalOpen:!this.state.isModalOpen});
+  }
+
+  handleLogin(event){
+    this.toggleModal();
+    console.log(this.username.value);
+    console.log(this.password.value);
+    console.log(this.remember);
+    event.preventDefault();
+  }
+
   render(){
     return (
       <>
@@ -54,6 +73,11 @@ class Header extends Component {
                 </Nav>
               </div>
             </Collapse>
+            <Navbar.Collapse className="justify-content-end">
+              <Nav>
+                <Button onClick={this.toggleModal} variant="outline-primary"><FontAwesomeIcon icon={faRightToBracket}/> Login</Button>
+              </Nav>
+            </Navbar.Collapse>
           </Container>
         </Navbar>
         <Row className="p-5 text-white rounded jumbotron row-header">
@@ -66,6 +90,31 @@ class Header extends Component {
             </p>
           </Col>
         </Row>
+        <Modal show={this.state.isModalOpen} onHide={this.toggleModal}>
+          <Modal.Header closeButton>Login</Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={this.handleLogin}>
+              <Form.Group>
+                <FormLabel htmlFor="username">Username</FormLabel>
+                <FormControl name="username" id="username" type="text" ref={(input)=>this.username = input}></FormControl>
+              </Form.Group>
+              <Form.Group>
+                <FormLabel htmlFor="password">Password</FormLabel>
+                <FormControl name="password" id="password" type="password" ref={(input)=>this.password = input}></FormControl>
+              </Form.Group>
+              <FormGroup>
+                <Form.Check
+                      type="checkbox"
+                      name="remember"
+                      label="Remember me"
+                      defaultChecked={this.remember=false}
+                      onChange={(event)=>this.remember=event.target.checked}
+                    />
+              </FormGroup>
+              <Button type="submit">Login</Button>
+            </Form>
+          </Modal.Body>
+        </Modal>
       </>
     );
   }
