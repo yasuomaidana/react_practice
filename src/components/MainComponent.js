@@ -17,7 +17,7 @@ import { PROMOTIONS } from "../shared/promotions";
 
 import { store } from "../redux/store";
 import { Provider } from "react-redux";
-import Counter from "../features/counter/Counter";
+import Redux from "./ReduxComponent";
 
 class Main extends React.Component {
   constructor(props) {
@@ -53,7 +53,7 @@ class Main extends React.Component {
                 <Route path="/menu/:dishId" element={<DishDetail dishes={this.state.dishes} comments={this.state.comments}/>}></Route>
                 <Route path="/contact" element={<Contact/>}></Route>
                 <Route path="/about" element={<About leaders={this.state.leaders}/>}></Route>
-                <Route path="/redux" element={<Counter/>}></Route>
+                <Route path="/redux" element={<Redux/>}></Route>
                 <Route path="*" element={<Navigate to="/home" replace />} />
               </Routes>
           </Container>
