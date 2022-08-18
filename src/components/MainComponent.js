@@ -8,12 +8,16 @@ import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
 import Contact from "./ContactComponent";
 import DishDetail from "./DishDetailComponent";
+import About from "./AboutComponent";
 
 import { DISHES } from "../shared/dishes";
 import { COMMENTS } from "../shared/comments";
 import { LEADERS } from "../shared/leaders";
 import { PROMOTIONS } from "../shared/promotions";
-import About from "./AboutComponent";
+
+import { store } from "../redux/store";
+import { Provider } from "react-redux";
+import Counter from "../features/counter/Counter";
 
 class Main extends React.Component {
   constructor(props) {
@@ -39,6 +43,7 @@ class Main extends React.Component {
   render() {
     return (
       <>
+      <Provider store={store}>
         <BrowserRouter>
           <Header/>
           <Container>
@@ -51,8 +56,10 @@ class Main extends React.Component {
                 <Route path="*" element={<Navigate to="/home" replace />} />
               </Routes>
           </Container>
+          <Counter/>
           <Footer />
         </BrowserRouter> 
+      </Provider>
       </>
     );
   }
