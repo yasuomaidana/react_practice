@@ -53,10 +53,10 @@ class Main extends React.Component {
                 <Route path="/menu/:dishId" element={<DishDetail dishes={this.state.dishes} comments={this.state.comments}/>}></Route>
                 <Route path="/contact" element={<Contact/>}></Route>
                 <Route path="/about" element={<About leaders={this.state.leaders}/>}></Route>
+                <Route path="/redux" element={<Counter/>}></Route>
                 <Route path="*" element={<Navigate to="/home" replace />} />
               </Routes>
           </Container>
-          <Counter/>
           <Footer />
         </BrowserRouter> 
       </Provider>
