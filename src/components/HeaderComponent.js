@@ -75,7 +75,7 @@ class Header extends Component {
   }
 
   navBarOrder(){
-    let small = window.innerWidth < 760;
+    let small = window.innerWidth < 768;
     if(small){
       return(<>
       {this.login()}
