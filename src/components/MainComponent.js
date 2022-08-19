@@ -15,9 +15,9 @@ import { COMMENTS } from "../shared/comments";
 import { LEADERS } from "../shared/leaders";
 import { PROMOTIONS } from "../shared/promotions";
 
-import { store } from "../redux/store";
-import { Provider } from "react-redux";
 import Redux from "./ReduxComponent";
+import { connect } from "react-redux";
+import { getCounter } from "../redux/selectors";
 
 class Main extends React.Component {
   constructor(props) {
@@ -43,7 +43,6 @@ class Main extends React.Component {
   render() {
     return (
       <>
-      <Provider store={store}>
         <BrowserRouter>
           <Header/>
           <Container>
@@ -57,12 +56,12 @@ class Main extends React.Component {
                 <Route path="*" element={<Navigate to="/home" replace />} />
               </Routes>
           </Container>
+          {this.props.count}
           <Footer />
         </BrowserRouter> 
-      </Provider>
       </>
     );
   }
 }
 
-export default Main;
+export default connect(state => ({ count: getCounter(state) }))(Main);
