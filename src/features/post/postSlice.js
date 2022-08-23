@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, nanoid } from "@reduxjs/toolkit";
 //import { sub } from 'date-fns';
 
 const initialState = [
@@ -33,7 +33,22 @@ const initialState = [
 const postsSlice = createSlice({
     name:"posts",
     initialState,
-    reducers:{}
+    reducers:{
+        postAdded(state,action){
+            state.push(action.payload)
+        },
+        prepare(title,content){
+            return {
+                payload:{
+                id:nanoid(),
+                title,
+                content
+                }
+            }
+        }
+    }
 });
 
+export const selectAllPosts = (state) => state.posts;
+export const { postAdded } = postsSlice.actions;
 export default postsSlice.reducer;
