@@ -6,7 +6,7 @@ const initialState = [
         id: '1',
         title: 'Learning Redux Toolkit',
         content: "I've heard good things.",
-        //date: sub(new Date(), { minutes: 10 }).toISOString(),
+        date: sub(new Date(), { minutes: 10 }).toISOString(),
         reactions: {
             thumbsUp: 0,
             wow: 0,
@@ -43,6 +43,7 @@ const postsSlice = createSlice({
                 id:nanoid(),
                 title,
                 content,
+                date:new Date().toISOString(),
                 userId
                 }
             }
