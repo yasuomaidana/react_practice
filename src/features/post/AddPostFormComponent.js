@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { postAdded } from "./postSlice";
-import { nanoid } from "@reduxjs/toolkit";
+import { selectAllUsers } from "../users/usersSlice";
 
 import React from 'react'
+import { Form,Row,Col, Button } from "react-bootstrap";
 
 export const AddPostFormComponent = () => {
 
@@ -13,7 +14,7 @@ export const AddPostFormComponent = () => {
     const [content, setContent] = useState('')
     const [userId, setUserId] = useState('')
 
-    //const users = useSelector(selectAllUsers)
+    const users = useSelector(selectAllUsers)
 
     const onTitleChanged = e => setTitle(e.target.value)
     const onContentChanged = e => setContent(e.target.value)
@@ -22,50 +23,63 @@ export const AddPostFormComponent = () => {
     const onSavePostClicked = () => {
         if (title && content) {
             dispatch(
-                postAdded({id:nanoid(),title, content, userId})
+                postAdded(title,content,userId)
             );
             setTitle('');
             setContent('');
         }
     }
 
-    const canSave = Boolean(title) && Boolean(content) && Boolean(userId)
+    const canSave = Boolean(title) && Boolean(content) && Boolean(userId);
 
-    const usersOptions = /*users.map(user => (
+    const usersOptions = users.map(user => (
         <option key={user.id} value={user.id}>
             {user.name}
         </option>
-    ))*/ <option>A</option>
+    ));
+
   return (
     <section>
             <h2>Add a New Post</h2>
-            <form>
-                <label htmlFor="postTitle">Post Title:</label>
-                <input
-                    type="text"
-                    id="postTitle"
-                    name="postTitle"
-                    value={title}
-                    onChange={onTitleChanged}
-                />
-                <label htmlFor="postAuthor">Author:</label>
-                <select id="postAuthor" value={userId} onChange={onAuthorChanged}>
-                    <option value=""></option>
-                    {usersOptions}
-                </select>
-                <label htmlFor="postContent">Content:</label>
-                <textarea
-                    id="postContent"
-                    name="postContent"
-                    value={content}
-                    onChange={onContentChanged}
-                />
-                <button
+            <Form>
+                <Form.Group as={Row} className="pb-2">
+                    <Form.Label htmlFor="postTitle" as={Col} xs={4} md={1}>Post Title:</Form.Label>
+                    <Col md={8} lg={4}><Form.Control
+                        type="text"
+                        id="postTitle"
+                        name="postTitle"
+                        value={title}
+                        onChange={onTitleChanged}
+                    /></Col>
+                </Form.Group>
+                <Form.Group as={Row} className="pb-2">
+                    <Form.Label htmlFor="postAuthor" as={Col} xs={4} md={1}>Author:</Form.Label>
+                    <Col md={8} lg={4}>
+                        <Form.Select id="postAuthor" value={userId} onChange={onAuthorChanged}>
+                            {usersOptions}
+                        </Form.Select>
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="pb-2">
+                    <Form.Label htmlFor="postContent" as={Col} xs={4} md={1}>Content:</Form.Label>
+                    <Col md={8} lg={4} className="ms-1">
+                        <Form.Control as="textarea"
+                        id="postContent"
+                        name="postContent"
+                        value={content}
+                        onChange={onContentChanged}/>
+                    </Col>
+                </Form.Group>
+                <Row>
+                    <Col md={9} lg={5} className="text-center">
+                    <Button
                     type="button"
                     onClick={onSavePostClicked}
                     disabled={!canSave}
-                >Save Post</button>
-            </form>
+                    >Save Post</Button>
+                    </Col>
+                </Row>
+            </Form>
         </section>
   );
 }
