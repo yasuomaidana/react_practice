@@ -3,6 +3,7 @@ import { AddPostFormComponent } from "./AddPostFormComponent";
 import { selectAllPosts } from "./postSlice";
 import PostAuthor from "./PostAuthor"
 import TimeAgo from "./TimeAgo";
+import ReactionButtons from "./ReactionButtons";
 
 const PostList = () =>{
     const posts = useSelector(selectAllPosts);
@@ -12,6 +13,7 @@ const PostList = () =>{
             <p>{post.content.substring(0,100)}</p>
             <PostAuthor userId={post.userId}/>
             <TimeAgo timeStamp={post.date}/>
+            <ReactionButtons post={post}/>
         </article>
     ));
     return(<><AddPostFormComponent/><section>{renderedPosts}</section></>)
