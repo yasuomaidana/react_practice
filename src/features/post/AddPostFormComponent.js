@@ -63,8 +63,8 @@ export const AddPostFormComponent = () => {
                 <Form.Group as={Row} className="pb-2">
                     <Form.Label htmlFor="postAuthor" as={Col} xs={4} md={1}>Author:</Form.Label>
                     <Col md={8} lg={4}>
-                        <Form.Select id="postAuthor" defaultValue={""} onChange={onAuthorChanged}>
-                            <option value={userId}></option>
+                        <Form.Select id="postAuthor" value={userId} onChange={onAuthorChanged}>
+                            <option value=""></option>
                             {usersOptions}
                         </Form.Select>
                     </Col>
