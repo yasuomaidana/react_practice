@@ -37,9 +37,9 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, handleClose }) => {
       onClose={handleClose}
       closeAfterTransition
     >
-      <Fade in={open}>
+      <Fade in={open} onClick={handleClose}>
         <Grid container justifyContent="center" alignItems="center" sx={{ height: "100vh" }}>
-          <Grid item xs={10} sm={8} md={6} lg={4}>
+          <Grid item xs={10} sm={8} md={6} lg={4} onClick={(event) => event.stopPropagation()}>
             <Grid container spacing={2} sx={{ backgroundColor: "white", padding: 2, borderRadius: 2 }}>
               <Grid item xs={12}>
                 <Typography variant="h5" align="center">
