@@ -5,7 +5,10 @@ export interface Auth{
     username: string;
 }
 
-const initialState: Auth = { isLoggedIn: false, username: ''};
+const initialState: Auth = { 
+    isLoggedIn: false, 
+    username:""
+}
 
 export const AuthSlice = createSlice({
     name: 'auth',

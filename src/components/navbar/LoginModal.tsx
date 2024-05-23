@@ -8,7 +8,7 @@ import {
   Grid,
   Link,
 } from "@mui/material";
-import login_request from "../../hooks/login";
+import login_request from "../../hooks/auth_requests";
 
 interface LoginModalProps {
   open: boolean;
@@ -18,19 +18,15 @@ interface LoginModalProps {
 const LoginModal: React.FC<LoginModalProps> = ({ open, handleClose }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const login_request_ = login_request();
 
-  const handleLogin = async () => {
-    const response = await login_request(username, password);
-    if (response){
-        console.log(`Logged in with token: ${JSON.stringify(response)}`);
-        localStorage.setItem('token', response);
-        handleClose();
-    }else{
-        
-    }
-    // let apiBackend = process.env.REACT_APP_API_BACKEND;
-    // console.log(`Logging in with API backend: ${apiBackend}`);
-    // console.log(`Logged in with username: ${username} and password: ${password}`);
+  const handleLogin = () => {
+    const response = login_request_(username, password);
+    response.then((response) => {
+        if (response) {
+            handleClose();
+        }
+    });
   };
 
   return (

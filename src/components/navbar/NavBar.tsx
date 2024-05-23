@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../state/store";
 import { logout } from "../../state/features/authSlice";
 import "./NavBar.scss";
+
 import LoginModal from "./LoginModal";
 import {
   AppBar,
@@ -16,6 +17,8 @@ import {
   Box,
 } from "@mui/material";
 
+import { logout_request } from "../../hooks/auth_requests";
+
 const NavBar = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
@@ -24,7 +27,7 @@ const NavBar = () => {
   const [openModal, setOpenModal] = useState(false);
 
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(logout_request() as any);
   };
 
   const handleMenuOpen = (event: any) => {
