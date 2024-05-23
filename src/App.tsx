@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.scss';
+import ReduxExample from './components/ReduxExample';
 // import UserComponent from './components/UserComponent';
 // import LinearPlot from './components/LinearPlot';
 
@@ -9,8 +10,9 @@ function App() {
       <header className="App-header">
         <h1>Home</h1>
       </header>
-      {/* <UserComponent />
-      <LinearPlot /> */}
+      {/* <UserComponent /> */}
+      {/* <LinearPlot /> */}
+      <ReduxExample />
     </div>
   );
 }
