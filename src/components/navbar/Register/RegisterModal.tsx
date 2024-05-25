@@ -10,7 +10,7 @@ import {
   Avatar,
   IconButton,
 } from "@mui/material";
-import { AddAPhoto, Cancel, PhotoCamera } from "@mui/icons-material";
+import { AddAPhoto, Cancel } from "@mui/icons-material";
 
 interface RegisterModalProps {
   open: boolean;
@@ -33,6 +33,93 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
   const handleRegister = () => {
     // Register logic here
   };
+
+  const ProfilePicture = () => (
+    <Badge
+      overlap="circular"
+      anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      badgeContent={
+        userImage ? (
+          <IconButton onClick={() => setUserImage(null)}>
+            <Cancel fontSize="large" sx={{ color: "error.main" }} />
+          </IconButton>
+        ) : (
+          <IconButton component="label">
+            <input
+              accept="image/*"
+              type="file"
+              hidden
+              onChange={(e) =>
+                setUserImage(e.target.files ? e.target.files[0] : null)
+              }
+            />
+            <AddAPhoto fontSize="large" sx={{ color: "primary.main" }} />
+          </IconButton>
+        )
+      }
+    >
+      {userImage ? (
+        <Avatar
+          src={URL.createObjectURL(userImage)}
+          sx={{ width: 56, height: 56 }}
+        />
+      ) : (
+        <Avatar sx={{ width: 56, height: 56 }} />
+      )}
+    </Badge>
+  );
+
+  const UserName = () => (
+    <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <TextField
+          label="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          fullWidth
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TextField
+          label="Last Name"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          fullWidth
+        />
+      </Grid>
+    </Grid>
+  );
+
+  const Auth = () => (
+    <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <TextField
+          label="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          fullWidth
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TextField
+          label="Email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          fullWidth
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TextField
+          label="Password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          fullWidth
+        />
+      </Grid>
+    </Grid>
+  );
 
   return (
     <Modal
@@ -68,103 +155,17 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Grid container spacing={2} alignItems="center">
-                  <Grid item xs={10}>
-                    <Grid container spacing={2}>
-                      <Grid item xs={12}>
-                        <TextField
-                          label="Name"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                          fullWidth
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          label="Last Name"
-                          value={lastName}
-                          onChange={(e) => setLastName(e.target.value)}
-                          fullWidth
-                        />
-                      </Grid>
-                    </Grid>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={10} md={10} lg={10}>
+                    <UserName />
                   </Grid>
-                  <Grid item xs={2}>
-                    <Badge
-                      overlap="circular"
-                      anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                      badgeContent={
-                        userImage ? (
-                          <IconButton onClick={() => setUserImage(null)}>
-                            <Cancel
-                              fontSize="large"
-                              sx={{
-                                color: "error.main",
-                                "&:hover": {
-                                  color: "error.dark", // use Material UI error dark color on hover
-                                },
-                              }}
-                            />
-                          </IconButton>
-                        ) : (
-                          <IconButton component="label" htmlFor="user-image">
-                            <input
-                              type="file"
-                              id="user-image"
-                              accept="image/*"
-                              hidden
-                              onChange={(e) => setUserImage(e.target.files![0])}
-                            ></input>
-                            <AddAPhoto
-                              fontSize="large"
-                              sx={{
-                                color: "inherit", // default color
-                                "&:hover": {
-                                  color: "primary.dark", // color on hover
-                                },
-                              }}
-                            />
-                          </IconButton>
-                        )
-                      }
-                    >
-                      {userImage ? (
-                        <Avatar
-                          src={URL.createObjectURL(userImage)}
-                          sx={{ width: 56, height: 56 }}
-                        />
-                      ) : (
-                        <Avatar sx={{ width: 56, height: 56 }} />
-                      )}
-                    </Badge>
+                  <Grid item xs={12} sm={2}>
+                    <ProfilePicture />
                   </Grid>
                 </Grid>
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  label="Username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  fullWidth
-                />
+                <Auth />
               </Grid>
               <Grid item xs={12}>
                 <Button variant="text" onClick={handleLoginOpen}>
