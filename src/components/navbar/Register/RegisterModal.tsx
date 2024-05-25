@@ -171,7 +171,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Grid container spacing={2}>
+                <Grid container spacing={2} alignItems="center">
                   <Grid item xs={12} sm={10} md={10} lg={10}>
                     <UserName />
                   </Grid>
