@@ -9,6 +9,8 @@ import {
   Badge,
   Avatar,
   IconButton,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import { AddAPhoto, Cancel } from "@mui/icons-material";
 
@@ -29,7 +31,9 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [userImage, setUserImage] = useState<File | null>(null);
-
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  
   const handleRegister = () => {
     // Register logic here
   };
@@ -137,6 +141,29 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
     </Grid>
   );
 
+  const smartphone_order = () => (
+    <Grid container >
+      <Grid item xs={12} alignItems={"center"}>
+        <ProfilePicture />
+      </Grid>
+      <Grid item xs={12}>
+        <UserName />
+        <Auth />
+      </Grid>
+    </Grid>
+  );
+
+  const normal_order = () => (
+    <Grid container spacing={2} alignItems="center">
+      <Grid item xs={12} sm={10}>
+        <UserName />
+      </Grid>
+      <Grid item xs={12} sm={2}>
+        <ProfilePicture />
+      </Grid>
+    </Grid>
+  );
+  
   return (
     <Modal
       aria-labelledby="transition-modal-title"
@@ -171,14 +198,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Grid container spacing={2} alignItems="center">
-                  <Grid item xs={12} sm={10} md={10} lg={10}>
-                    <UserName />
-                  </Grid>
-                  <Grid item xs={12} sm={2}>
-                    <ProfilePicture />
-                  </Grid>
-                </Grid>
+                {isSmallScreen ? smartphone_order() : normal_order()}
               </Grid>
               <Grid item xs={12}>
                 <Auth />
