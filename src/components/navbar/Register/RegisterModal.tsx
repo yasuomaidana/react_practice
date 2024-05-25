@@ -96,7 +96,15 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
                       badgeContent={
                         userImage ? (
                           <IconButton onClick={() => setUserImage(null)}>
-                            <Cancel fontSize="large" sx={{ color: "red" }} />
+                            <Cancel
+                              fontSize="large"
+                              sx={{
+                                color: "error.main",
+                                "&:hover": {
+                                  color: "error.dark", // use Material UI error dark color on hover
+                                },
+                              }}
+                            />
                           </IconButton>
                         ) : (
                           <IconButton component="label" htmlFor="user-image">
@@ -105,9 +113,17 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
                               id="user-image"
                               accept="image/*"
                               hidden
-                              onChange={(e) => setUserImage(e.target.files![0])}>
-                            </input>
-                            <AddAPhoto fontSize="large" />
+                              onChange={(e) => setUserImage(e.target.files![0])}
+                            ></input>
+                            <AddAPhoto
+                              fontSize="large"
+                              sx={{
+                                color: "inherit", // default color
+                                "&:hover": {
+                                  color: "primary.dark", // color on hover
+                                },
+                              }}
+                            />
                           </IconButton>
                         )
                       }
