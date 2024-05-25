@@ -6,14 +6,20 @@ import { useDispatch } from "react-redux";
 const LoginRequest = () => {
     const dispatch = useDispatch();
 
-    const login_request = async (username:string, password:string) => {
+    const login_request = async (username:string, password:string, remember: boolean) => {
         try{
             const response = await axios.post(process.env.REACT_APP_API_BACKEND + '/login', {
                 username:username,
                 password:password
             },{
-                withCredentials: true
+                headers: {
+                    remember: remember
+                }
             });
+
+            const { access_token, refresh_token } = response.data;
+            localStorage.setItem("access_token", access_token);
+            localStorage.setItem("refresh_token", refresh_token);
             dispatch(login({username:response.data.username}));
             return true;
         }catch(err){
@@ -26,24 +32,23 @@ const LoginRequest = () => {
 export default LoginRequest;
 
 export const initializeAuht = () => (dispatch:any) => {
-    axios.get(process.env.REACT_APP_API_BACKEND||"",{withCredentials:true})
-    .then(response => {
-        if(response){
-            dispatch(login({username:response.data.username}));
-        }
-    },
-    error => {
+    const access_token = localStorage.getItem('access_token');
+    if (access_token) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+        dispatch(login({ username: 'username' })); // You might need to fetch the username from the backend or store it in local storage
+    } else {
         dispatch(logout());
-        return;
-    })
-    
+    }
 };
 
 export const logout_request = () => (dispatch:any) => {
-    axios.post(process.env.REACT_APP_API_BACKEND + "/logout",{}, 
-    {withCredentials:true})
+    axios.post(process.env.REACT_APP_API_BACKEND + "/logout", {
+        refreshToken: localStorage.getItem('refresh_token')
+    }).catch(error => {console.log(error);return null;})
     .finally(() => {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
         dispatch(logout());
-        window.location.reload();
+        // window.location.reload();
     });
 }
