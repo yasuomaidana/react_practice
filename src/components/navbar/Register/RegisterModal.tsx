@@ -100,6 +100,13 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
                           </IconButton>
                         ) : (
                           <IconButton component="label" htmlFor="user-image">
+                            <input
+                              type="file"
+                              id="user-image"
+                              accept="image/*"
+                              hidden
+                              onChange={(e) => setUserImage(e.target.files![0])}>
+                            </input>
                             <AddAPhoto fontSize="large" />
                           </IconButton>
                         )
@@ -114,18 +121,6 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
                         <Avatar sx={{ width: 56, height: 56 }} />
                       )}
                     </Badge>
-                    <label htmlFor="user-image" style={{ display: "none" }}>
-                      Upload Image
-                    </label>
-                    <input
-                      accept="image/*"
-                      id="user-image"
-                      type="file"
-                      onChange={(e) =>
-                        setUserImage(e.target.files ? e.target.files[0] : null)
-                      }
-                      style={{ display: "none" }}
-                    />
                   </Grid>
                 </Grid>
               </Grid>
