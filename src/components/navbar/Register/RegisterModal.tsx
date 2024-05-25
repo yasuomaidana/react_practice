@@ -6,9 +6,11 @@ import {
   TextField,
   Button,
   Grid,
-  Link,
+  Badge,
+  Avatar,
+  IconButton,
 } from "@mui/material";
-// import register_request from "../../hooks/auth_requests"; // Replace with your own register request hook
+import { AddAPhoto, PhotoCamera } from "@mui/icons-material";
 
 interface RegisterModalProps {
   open: boolean;
@@ -23,16 +25,9 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, handleClose, handle
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [userImage, setUserImage] = useState<File | null>(null);
-//   const register_request_ = register_request();
 
   const handleRegister = () => {
-    handleClose();
-    // const response = register_request_(username, email, password, name, lastName, userImage);
-    // response.then((response) => {
-    //   if (response) {
-    //     handleClose();
-    //   }
-    // });
+    // Register logic here
   };
 
   return (
@@ -47,10 +42,39 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, handleClose, handle
         <Grid container justifyContent="center" alignItems="center" sx={{ height: "100vh" }}>
           <Grid item xs={10} sm={8} md={6} lg={4} onClick={(event) => event.stopPropagation()}>
             <Grid container spacing={2} sx={{ backgroundColor: "white", padding: 2, borderRadius: 2 }}>
-              <Grid item xs={12}>
+            <Grid item xs={12}>
                 <Typography variant="h5" align="center">
                   Register
                 </Typography>
+              </Grid>
+              <Grid item xs={10}>
+                <TextField
+                  label="Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={2}>
+                <Badge
+                  overlap="circular"
+                  anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                  badgeContent={
+                    <IconButton size="small" color="primary">
+                      <PhotoCamera />
+                    </IconButton>
+                  }
+                >
+                  <Avatar src={userImage ? URL.createObjectURL(userImage) : undefined} />
+                </Badge>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Last Name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  fullWidth
+                />
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -77,41 +101,6 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, handleClose, handle
                   onChange={(e) => setPassword(e.target.value)}
                   fullWidth
                 />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Last Name"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  fullWidth
-                />
-              </Grid>
-            <Grid item xs={12}>
-                <input
-                    accept="image/*"
-                    style={{ display: 'none' }}
-                    id="user-image"
-                    type="file"
-                    onChange={(e) => setUserImage(e.target.files ? e.target.files[0] : null)}
-                />
-                <label htmlFor="user-image">
-                    <Button variant="contained" component="span">
-                        Upload User Image
-                    </Button>
-                </label>
-            </Grid>
-              <Grid item xs={12}>
-                <Button variant="contained" color="primary" onClick={handleRegister} fullWidth>
-                  Register
-                </Button>
               </Grid>
               <Grid item xs={12}>
                 <Button variant="text" onClick={handleLoginOpen}>
