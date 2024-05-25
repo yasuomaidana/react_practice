@@ -47,35 +47,41 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, handleClose, handle
                   Register
                 </Typography>
               </Grid>
-              <Grid item xs={10}>
-                <TextField
-                  label="Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={2}>
-                <Badge
-                  overlap="circular"
-                  anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                  badgeContent={
-                    <IconButton size="small" color="primary">
-                      <PhotoCamera />
-                    </IconButton>
-                  }
-                >
-                  <Avatar src={userImage ? URL.createObjectURL(userImage) : undefined} />
-                </Badge>
-              </Grid>
               <Grid item xs={12}>
-                <TextField
-                  label="Last Name"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  fullWidth
-                />
-              </Grid>
+  <Grid container spacing={2} alignItems="center">
+    <Grid item xs={10}>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <TextField
+            label="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label="Last Name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            fullWidth
+          />
+        </Grid>
+      </Grid>
+    </Grid>
+    <Grid item xs={2}>
+      <Badge
+        overlap="circular"
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        badgeContent={
+          <AddAPhoto fontSize="large" />
+        }
+      >
+        <Avatar sx={{ width: 56, height: 56 }} />
+      </Badge>
+    </Grid>
+  </Grid>
+</Grid>
               <Grid item xs={12}>
                 <TextField
                   label="Username"
