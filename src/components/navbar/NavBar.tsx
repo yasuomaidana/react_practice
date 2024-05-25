@@ -89,7 +89,7 @@ const NavBar = () => {
           <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
           <MenuItem onClick={handleMenuClose}>Account</MenuItem>
           <MenuItem onClick={handleMenuClose}>Dashboard</MenuItem>
-          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          <MenuItem onClick={()=>{handleLogout();handleMenuClose()}}>Logout</MenuItem>
         </Menu>
         <LoginModal open={openModal} handleClose={handleModalClose} />
       </Toolbar>
