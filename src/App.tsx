@@ -4,6 +4,7 @@ import ReduxExample from './components/ReduxExample';
 import NavBar from './components/navbar/NavBar';
 import { useDispatch } from 'react-redux';
 import { initializeAuht } from './hooks/auth_requests';
+import "./hooks/axiosConfig";
 // import UserComponent from './components/UserComponent';
 // import LinearPlot from './components/LinearPlot';
 
