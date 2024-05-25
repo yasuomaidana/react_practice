@@ -94,31 +94,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
                       overlap="circular"
                       anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
                       badgeContent={
-                        <IconButton component="label">
-                          <label
-                            htmlFor="user-image"
-                            style={{ display: "none" }}
-                          >
-                            <input
-                              accept="image/*"
-                              id="user-image"
-                              type="file"
-                              onChange={(e) =>
-                                setUserImage(
-                                  e.target.files ? e.target.files[0] : null
-                                )
-                              }
-                            />
-                            {userImage ? (
-                              <img
-                                src={URL.createObjectURL(userImage)}
-                                alt="User"
-                                style={{ width: 56, height: 56 }}
-                              />
-                            ) : (
-                              <AddAPhoto fontSize="large" />
-                            )}
-                          </label>
+                        <IconButton component="label" htmlFor="user-image">
                           <AddAPhoto fontSize="large" />
                         </IconButton>
                       }
@@ -132,6 +108,18 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
                         <Avatar sx={{ width: 56, height: 56 }} />
                       )}
                     </Badge>
+                    <label htmlFor="user-image" style={{ display: "none" }}>
+                        Upload Image
+                    </label>
+                    <input
+                        accept="image/*"
+                        id="user-image"
+                        type="file"
+                        onChange={(e) =>
+                            setUserImage(e.target.files ? e.target.files[0] : null)
+                        }
+                        style={{ display: "none" }}
+                    />
                   </Grid>
                 </Grid>
               </Grid>
