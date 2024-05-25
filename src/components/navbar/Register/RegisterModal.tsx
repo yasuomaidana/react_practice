@@ -10,7 +10,7 @@ import {
   Avatar,
   IconButton,
 } from "@mui/material";
-import { AddAPhoto, PhotoCamera } from "@mui/icons-material";
+import { AddAPhoto, Cancel, PhotoCamera } from "@mui/icons-material";
 
 interface RegisterModalProps {
   open: boolean;
@@ -94,9 +94,15 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
                       overlap="circular"
                       anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
                       badgeContent={
-                        <IconButton component="label" htmlFor="user-image">
-                          <AddAPhoto fontSize="large" />
-                        </IconButton>
+                        userImage ? (
+                          <IconButton onClick={() => setUserImage(null)}>
+                            <Cancel fontSize="large" sx={{ color: "red" }} />
+                          </IconButton>
+                        ) : (
+                          <IconButton component="label" htmlFor="user-image">
+                            <AddAPhoto fontSize="large" />
+                          </IconButton>
+                        )
                       }
                     >
                       {userImage ? (
@@ -109,16 +115,16 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
                       )}
                     </Badge>
                     <label htmlFor="user-image" style={{ display: "none" }}>
-                        Upload Image
+                      Upload Image
                     </label>
                     <input
-                        accept="image/*"
-                        id="user-image"
-                        type="file"
-                        onChange={(e) =>
-                            setUserImage(e.target.files ? e.target.files[0] : null)
-                        }
-                        style={{ display: "none" }}
+                      accept="image/*"
+                      id="user-image"
+                      type="file"
+                      onChange={(e) =>
+                        setUserImage(e.target.files ? e.target.files[0] : null)
+                      }
+                      style={{ display: "none" }}
                     />
                   </Grid>
                 </Grid>
