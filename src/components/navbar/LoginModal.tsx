@@ -15,9 +15,10 @@ import login_request from "../../hooks/auth_requests";
 interface LoginModalProps {
   open: boolean;
   handleClose: () => void;
+  handleRegisterOpen: () => void;
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({ open, handleClose }) => {
+const LoginModal: React.FC<LoginModalProps> = ({ open, handleClose, handleRegisterOpen }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
@@ -90,9 +91,9 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, handleClose }) => {
                 </Link>
               </Grid>
               <Grid item xs={12}>
-                <Link href="#" variant="body2">
+                <Button variant="text" onClick={handleRegisterOpen}>
                   Don't have an account? Register
-                </Link>
+                </Button>
               </Grid>
             </Grid>
           </Grid>

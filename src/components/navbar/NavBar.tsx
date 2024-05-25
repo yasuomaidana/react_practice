@@ -18,13 +18,34 @@ import {
 } from "@mui/material";
 
 import { logout_request } from "../../hooks/auth_requests";
+import RegisterModal from "./Register/RegisterModal";
 
 const NavBar = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const username = useAppSelector((state) => state.auth.username);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [openModal, setOpenModal] = useState(false);
+  
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [registerOpen, setRegisterOpen] = useState(false);
+
+  const handleLoginOpen = () => {
+    setRegisterOpen(false);
+    setLoginOpen(true);
+  };
+
+  const handleLoginClose = () => {
+    setLoginOpen(false);
+  };
+
+  const handleRegisterOpen = () => {
+    setLoginOpen(false);
+    setRegisterOpen(true);
+  };
+
+  const handleRegisterClose = () => {
+    setRegisterOpen(false);
+  };
 
   const handleLogout = () => {
     dispatch(logout_request() as any);
@@ -38,13 +59,6 @@ const NavBar = () => {
     setAnchorEl(null);
   };
 
-  const handleModalOpen = () => {
-    setOpenModal(true);
-  };
-
-  const handleModalClose = () => {
-    setOpenModal(false);
-  };
 
   return (
     <AppBar position="static">
@@ -67,7 +81,7 @@ const NavBar = () => {
             />
           </IconButton>
         ) : (
-          <IconButton onClick={handleModalOpen}>
+          <IconButton onClick={handleLoginOpen}>
             <Avatar src="/user-logo.png" alt="User Logo" />
           </IconButton>
         )}
@@ -91,7 +105,8 @@ const NavBar = () => {
           <MenuItem onClick={handleMenuClose}>Dashboard</MenuItem>
           <MenuItem onClick={()=>{handleLogout();handleMenuClose()}}>Logout</MenuItem>
         </Menu>
-        <LoginModal open={openModal} handleClose={handleModalClose} />
+        <LoginModal open={loginOpen} handleClose={handleLoginClose} handleRegisterOpen={handleRegisterOpen}/>
+        <RegisterModal open={registerOpen} handleClose={handleRegisterClose} handleLoginOpen={handleLoginOpen} />
       </Toolbar>
     </AppBar>
   );

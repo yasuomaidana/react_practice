@@ -13,9 +13,10 @@ import {
 interface RegisterModalProps {
   open: boolean;
   handleClose: () => void;
+  handleLoginOpen: () => void;
 }
 
-const RegisterModal: React.FC<RegisterModalProps> = ({ open, handleClose }) => {
+const RegisterModal: React.FC<RegisterModalProps> = ({ open, handleClose, handleLoginOpen }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -113,9 +114,9 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, handleClose }) => {
                 </Button>
               </Grid>
               <Grid item xs={12}>
-                <Link href="#" variant="body2">
+                <Button variant="text" onClick={handleLoginOpen}>
                   Already have an account? Login
-                </Link>
+                </Button>
               </Grid>
             </Grid>
           </Grid>
