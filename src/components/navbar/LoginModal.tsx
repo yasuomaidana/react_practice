@@ -7,6 +7,8 @@ import {
   Button,
   Grid,
   Link,
+  Checkbox,
+  FormControlLabel,
 } from "@mui/material";
 import login_request from "../../hooks/auth_requests";
 
@@ -18,14 +20,15 @@ interface LoginModalProps {
 const LoginModal: React.FC<LoginModalProps> = ({ open, handleClose }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [remember, setRemember] = useState(false);
   const login_request_ = login_request();
 
   const handleLogin = () => {
-    const response = login_request_(username, password);
+    const response = login_request_(username, password, remember);
     response.then((response) => {
-        if (response) {
-            handleClose();
-        }
+      if (response) {
+        handleClose();
+      }
     });
   };
 
@@ -61,6 +64,19 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, handleClose }) => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   fullWidth
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={remember}
+                      onChange={(e) => setRemember(e.target.checked)}
+                      name="remember"
+                      color="primary"
+                    />
+                  }
+                  label="Remember me"
                 />
               </Grid>
               <Grid item xs={12}>
