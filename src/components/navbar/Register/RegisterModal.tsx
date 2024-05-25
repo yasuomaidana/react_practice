@@ -41,7 +41,15 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
       badgeContent={
         userImage ? (
           <IconButton onClick={() => setUserImage(null)}>
-            <Cancel fontSize="large" sx={{ color: "error.main" }} />
+            <Cancel
+              fontSize="large"
+              sx={{
+                color: 'error.secondary',
+                '&:hover': {
+                  color: 'error.dark',
+                },
+              }}
+            />
           </IconButton>
         ) : (
           <IconButton component="label">
@@ -53,7 +61,15 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
                 setUserImage(e.target.files ? e.target.files[0] : null)
               }
             />
-            <AddAPhoto fontSize="large" sx={{ color: "primary.main" }} />
+            <AddAPhoto
+              fontSize="large"
+              sx={{
+                color: 'primary.secondary',
+                '&:hover': {
+                  color: 'primary.dark',
+                },
+              }}
+            />
           </IconButton>
         )
       }
