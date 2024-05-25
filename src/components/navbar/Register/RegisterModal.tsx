@@ -11,6 +11,7 @@ import {
   IconButton,
   useTheme,
   useMediaQuery,
+  Box,
 } from "@mui/material";
 import { AddAPhoto, Cancel } from "@mui/icons-material";
 
@@ -32,8 +33,8 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
   const [lastName, setLastName] = useState("");
   const [userImage, setUserImage] = useState<File | null>(null);
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   const handleRegister = () => {
     // Register logic here
   };
@@ -48,9 +49,9 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
             <Cancel
               fontSize="large"
               sx={{
-                color: 'error.secondary',
-                '&:hover': {
-                  color: 'error.dark',
+                color: "error.secondary",
+                "&:hover": {
+                  color: "error.dark",
                 },
               }}
             />
@@ -68,9 +69,9 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
             <AddAPhoto
               fontSize="large"
               sx={{
-                color: 'primary.secondary',
-                '&:hover': {
-                  color: 'primary.dark',
+                color: "primary.secondary",
+                "&:hover": {
+                  color: "primary.dark",
                 },
               }}
             />
@@ -142,13 +143,14 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
   );
 
   const smartphone_order = () => (
-    <Grid container >
-      <Grid item xs={12} alignItems={"center"}>
-        <ProfilePicture />
+    <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <Box display="flex" justifyContent="center" m={2}>
+          <ProfilePicture />
+        </Box>
       </Grid>
       <Grid item xs={12}>
         <UserName />
-        <Auth />
       </Grid>
     </Grid>
   );
@@ -163,7 +165,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
       </Grid>
     </Grid>
   );
-  
+
   return (
     <Modal
       aria-labelledby="transition-modal-title"
