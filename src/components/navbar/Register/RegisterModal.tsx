@@ -18,7 +18,11 @@ interface RegisterModalProps {
   handleLoginOpen: () => void;
 }
 
-const RegisterModal: React.FC<RegisterModalProps> = ({ open, handleClose, handleLoginOpen }) => {
+const RegisterModal: React.FC<RegisterModalProps> = ({
+  open,
+  handleClose,
+  handleLoginOpen,
+}) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,49 +43,98 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, handleClose, handle
       closeAfterTransition
     >
       <Fade in={open} onClick={handleClose}>
-        <Grid container justifyContent="center" alignItems="center" sx={{ height: "100vh" }}>
-          <Grid item xs={10} sm={8} md={6} lg={4} onClick={(event) => event.stopPropagation()}>
-            <Grid container spacing={2} sx={{ backgroundColor: "white", padding: 2, borderRadius: 2 }}>
-            <Grid item xs={12}>
+        <Grid
+          container
+          justifyContent="center"
+          alignItems="center"
+          sx={{ height: "100vh" }}
+        >
+          <Grid
+            item
+            xs={10}
+            sm={8}
+            md={6}
+            lg={4}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <Grid
+              container
+              spacing={2}
+              sx={{ backgroundColor: "white", padding: 2, borderRadius: 2 }}
+            >
+              <Grid item xs={12}>
                 <Typography variant="h5" align="center">
                   Register
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-  <Grid container spacing={2} alignItems="center">
-    <Grid item xs={10}>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <TextField
-            label="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            label="Last Name"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            fullWidth
-          />
-        </Grid>
-      </Grid>
-    </Grid>
-    <Grid item xs={2}>
-      <Badge
-        overlap="circular"
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        badgeContent={
-          <AddAPhoto fontSize="large" />
-        }
-      >
-        <Avatar sx={{ width: 56, height: 56 }} />
-      </Badge>
-    </Grid>
-  </Grid>
-</Grid>
+                <Grid container spacing={2} alignItems="center">
+                  <Grid item xs={10}>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <TextField
+                          label="Name"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          label="Last Name"
+                          value={lastName}
+                          onChange={(e) => setLastName(e.target.value)}
+                          fullWidth
+                        />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Badge
+                      overlap="circular"
+                      anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                      badgeContent={
+                        <IconButton component="label">
+                          <label
+                            htmlFor="user-image"
+                            style={{ display: "none" }}
+                          >
+                            <input
+                              accept="image/*"
+                              id="user-image"
+                              type="file"
+                              onChange={(e) =>
+                                setUserImage(
+                                  e.target.files ? e.target.files[0] : null
+                                )
+                              }
+                            />
+                            {userImage ? (
+                              <img
+                                src={URL.createObjectURL(userImage)}
+                                alt="User"
+                                style={{ width: 56, height: 56 }}
+                              />
+                            ) : (
+                              <AddAPhoto fontSize="large" />
+                            )}
+                          </label>
+                          <AddAPhoto fontSize="large" />
+                        </IconButton>
+                      }
+                    >
+                      {userImage ? (
+                        <Avatar
+                          src={URL.createObjectURL(userImage)}
+                          sx={{ width: 56, height: 56 }}
+                        />
+                      ) : (
+                        <Avatar sx={{ width: 56, height: 56 }} />
+                      )}
+                    </Badge>
+                  </Grid>
+                </Grid>
+              </Grid>
               <Grid item xs={12}>
                 <TextField
                   label="Username"
