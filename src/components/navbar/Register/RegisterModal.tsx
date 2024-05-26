@@ -166,15 +166,20 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
     </Grid>
   );
 
+  const handleModalClose = () => {
+    setUserImage(null);
+    handleClose();
+  };
+
   return (
     <Modal
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
       open={open}
-      onClose={handleClose}
+      onClose={handleModalClose}
       closeAfterTransition
     >
-      <Fade in={open} onClick={handleClose}>
+      <Fade in={open} onClick={handleModalClose}>
         <Grid
           container
           justifyContent="center"
