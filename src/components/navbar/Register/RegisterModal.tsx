@@ -179,7 +179,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
       onClose={handleModalClose}
       closeAfterTransition
     >
-      <Fade in={open} onClick={handleModalClose}>
+      <Fade in={open} onClick={handleModalClose} data-testid="closer">
         <Grid
           container
           justifyContent="center"
@@ -209,6 +209,11 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
               </Grid>
               <Grid item xs={12}>
                 <Auth />
+              </Grid>
+<Grid item xs={12}>
+                <Button variant="contained" fullWidth onClick={handleRegister}>
+                  Register
+                </Button>
               </Grid>
               <Grid item xs={12}>
                 <Button variant="text" onClick={handleLoginOpen}>
