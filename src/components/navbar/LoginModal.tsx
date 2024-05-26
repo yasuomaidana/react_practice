@@ -86,9 +86,9 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, handleClose, handleRegist
                 </Button>
               </Grid>
               <Grid item xs={12}>
-                <Link href="#" variant="body2">
+                <Button href="#" variant="text" LinkComponent={Link}>
                   Forgot password?
-                </Link>
+                </Button>
               </Grid>
               <Grid item xs={12}>
                 <Button variant="text" onClick={handleRegisterOpen}>
