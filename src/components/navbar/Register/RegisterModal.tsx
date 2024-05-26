@@ -36,7 +36,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleRegister = () => {
-    // Register logic here
+    console.log("Registering...");
   };
 
   const ProfilePicture = () => (
@@ -210,7 +210,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
               <Grid item xs={12}>
                 <Auth />
               </Grid>
-<Grid item xs={12}>
+              <Grid item xs={12}>
                 <Button variant="contained" fullWidth onClick={handleRegister}>
                   Register
                 </Button>
