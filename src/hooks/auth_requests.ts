@@ -1,26 +1,27 @@
 import axios from "axios";
 import { login, logout } from "../state/features/authSlice";
 import { useDispatch } from "react-redux";
+import { LoginRequestDTO, LoginResponse } from "../dto/auth/authDtos";
 
 
 const LoginRequest = () => {
     const dispatch = useDispatch();
 
-    const login_request = async (username:string, password:string, remember: boolean) => {
+    const login_request = async (loginRequest:LoginRequestDTO) => {
         try{
-            const response = await axios.post(process.env.REACT_APP_API_BACKEND + '/login', {
-                username:username,
-                password:password
+            const response:LoginResponse = await axios.post(process.env.REACT_APP_API_BACKEND + '/login', {
+                username:loginRequest.username,
+                password:loginRequest.password
             },{
                 headers: {
-                    remember: remember
+                    remember: loginRequest.remember
                 }
             });
 
-            const { access_token, refresh_token } = response.data;
+            const { access_token, refresh_token } = response;
             localStorage.setItem("access_token", access_token);
             localStorage.setItem("refresh_token", refresh_token);
-            dispatch(login({username:response.data.username}));
+            dispatch(login({username:response.username}));
             return true;
         }catch(err){
             return null;
@@ -49,6 +50,5 @@ export const logout_request = () => (dispatch:any) => {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
         dispatch(logout());
-        // window.location.reload();
     });
 }

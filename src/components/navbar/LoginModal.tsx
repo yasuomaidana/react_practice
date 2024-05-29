@@ -25,7 +25,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, handleClose, handleRegist
   const login_request_ = login_request();
 
   const handleLogin = () => {
-    const response = login_request_(username, password, remember);
+    const response = login_request_({username, password, remember});
     response.then((response) => {
       if (response) {
         handleClose();
