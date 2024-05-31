@@ -1,36 +1,14 @@
+import { rizenR2 } from "./Chipsets";
+import { coverCases } from "./CoverCases";
+import { motherBoards } from "./ModelBoards";
 import PC from "./PCModel";
+import { powerUnits } from "./PowerUnits";
 
 export const initialPC: PC = {
     cpuArchitecture: 'AMD',
-    motherBoard: {
-      chipsetCompatibility: [
-        {
-          generation: 'latest',
-          architecture: '',
-          apu: false,
-        },
-      ],
-      ramUnit: {
-        slots: 0,
-        ramSlots: [],
-      },
-      memoryUnit: {
-        slots: 0,
-        memorySlots: [],
-      },
-    },
-    chipset: {
-      generation: '',
-      architecture: '',
-      apu: false,
-    },
-    powerUnit: {
-      powerSource: {
-        powerCapacity: 0,
-        currentProtection: false,
-      },
-      coolingUnits: [],
-    },
-    coverCase: '',
+    motherBoard: motherBoards[motherBoards.length - 1],
+    chipset: rizenR2[0],
+    powerUnit: powerUnits[0],
+    coverCase: coverCases[0],
     luxury: false,
   };
