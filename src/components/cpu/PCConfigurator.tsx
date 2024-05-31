@@ -26,12 +26,23 @@ const PCConfigurator: React.FC<PCConfiguratorProps> = ({ initialPC }) => {
   const [pc, setPc] = useState<PC>(initialPC);
   const [modalOpen, setModalOpen] = useState(false);
 
+  const availableChipsets = (
+    pc.luxury ? [...intelI10, ...intelI9, ...rizenR3] : chipsets
+  ).filter((c) => c.architecture.startsWith(pc.cpuArchitecture));
+
+  const availableMotherBoards = motherBoards.filter((mb) =>
+    mb.chipsetCompatibility.some(
+      (c) => c.architecture === pc.chipset?.architecture
+    )
+  );
+
+
   const handleCpuArchitectureChange = (
     e: SelectChangeEvent<"AMD" | "Intel">
   ) => {
     setPc({
       ...pc,
-      cpuArchitecture: e.target.value as "AMD" | "Intel",
+      cpuArchitecture: e.target.value as "AMD" | "Intel"
     });
   };
 
@@ -94,16 +105,6 @@ const PCConfigurator: React.FC<PCConfiguratorProps> = ({ initialPC }) => {
     }
   };
 
-  const availableChipsets = (
-    pc.luxury ? [...intelI10, ...intelI9, ...rizenR3] : chipsets
-  ).filter((c) => c.architecture.startsWith(pc.cpuArchitecture));
-
-  const availableMotherBoards = motherBoards.filter((mb) =>
-    mb.chipsetCompatibility.some(
-      (c) => c.architecture === pc.chipset?.architecture
-    )
-  );
-
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} md={8} lg={6}>
@@ -132,7 +133,7 @@ const PCConfigurator: React.FC<PCConfiguratorProps> = ({ initialPC }) => {
         <Grid container spacing={2}>
           <Grid item xs={6}>
             <Select
-              value={pc.chipset ? pc.chipset.architecture : ""}
+              value={pc.chipset ? pc.chipset.architecture : availableChipsets[0].architecture}
               onChange={handleChipsetChange}
               title="Chipset"
             >
