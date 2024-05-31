@@ -5,13 +5,13 @@ interface Chipset {
 }
 
 interface RamSlot {
-    capacity: number;
+    capacity: String;
     speed: number;
     type: string;
 }
 
 interface MemorySlot {
-    capacity: number;
+    capacity: String;
     speed: number;
     type: string;
 }
@@ -50,5 +50,5 @@ interface PC {
     coverCase: string;
     luxury: boolean;
 }
-
+export type { Chipset, RamSlot, MemorySlot, CoolingUnit, PowerUnit, MotherBoard };
 export default PC;
