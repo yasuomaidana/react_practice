@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import PC from "./PCModel";
 import React from "react";
 import FeatureDescription from "./FeatureDescription";
