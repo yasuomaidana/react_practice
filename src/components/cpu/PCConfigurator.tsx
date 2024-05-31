@@ -104,6 +104,9 @@ const PCConfigurator: React.FC<PCConfiguratorProps> = ({ initialPC }) => {
       });
     }
   };
+  const closeModal = () =>{
+    setModalOpen(false);
+  }
 
   return (
     <Grid container spacing={2}>
@@ -201,23 +204,8 @@ const PCConfigurator: React.FC<PCConfiguratorProps> = ({ initialPC }) => {
       <Grid item xs={12} md={4} lg={6}>
         <ComputerDetails pc={pc} />
       </Grid>
-      <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 400,
-            bgcolor: "background.paper",
-            border: "2px solid #000",
-            boxShadow: 24,
-            p: 4,
-          }}
-        >
-          <CoolingUnitEditor pc={pc} onSave={handleCoolingUnitsSave} />
-        </Box>
-      </Modal>
+      <CoolingUnitEditor pc={pc} onSave={handleCoolingUnitsSave} 
+      open={modalOpen} onClose={closeModal}/>
     </Grid>
   );
 };
