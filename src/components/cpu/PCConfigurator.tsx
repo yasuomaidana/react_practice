@@ -11,10 +11,12 @@ import {
   SelectChangeEvent,
   FormControlLabel,
 } from "@mui/material";
-import PC from "./PCModel";
+import PC, { PowerUnit } from "./PCModel";
 import CoolingUnitEditor from "./CoolingUnitEditor";
 import { chipsets, intelI10, intelI9, rizenR3 } from "./Chipsets";
 import { motherBoards } from "./ModelBoards";
+import { coverCases } from "./CoverCases";
+import { powerUnits } from "./PowerUnits";
 
 interface PCConfiguratorProps {
   initialPC: PC;
@@ -68,7 +70,11 @@ const PCConfigurator: React.FC<PCConfiguratorProps> = ({ initialPC }) => {
   };
 
   const handlePowerUnitChange = (e: SelectChangeEvent<string>) => {
-    // Update power unit logic here
+    const powerUnit: PowerUnit = JSON.parse(e.target.value);
+    setPc({
+      ...pc,
+      powerUnit,
+    });
   };
 
   const handleCoverCaseChange = (e: SelectChangeEvent<string>) => {
@@ -102,26 +108,26 @@ const PCConfigurator: React.FC<PCConfiguratorProps> = ({ initialPC }) => {
     <Grid container spacing={2}>
       <Grid item xs={6}>
         <Grid item>
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <Select
-              value={pc.cpuArchitecture}
-              onChange={handleCpuArchitectureChange}
-              title="CPU Architecture"
-            >
-              <MenuItem value="AMD">AMD</MenuItem>
-              <MenuItem value="Intel">Intel</MenuItem>
-            </Select>
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <Select
+                value={pc.cpuArchitecture}
+                onChange={handleCpuArchitectureChange}
+                title="CPU Architecture"
+              >
+                <MenuItem value="AMD">AMD</MenuItem>
+                <MenuItem value="Intel">Intel</MenuItem>
+              </Select>
+            </Grid>
+            <Grid item xs={6}>
+              <FormControlLabel
+                control={
+                  <Checkbox checked={pc.luxury} onChange={handleLuxuryChange} />
+                }
+                label="Luxury"
+              />
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            <FormControlLabel
-              control={
-                <Checkbox checked={pc.luxury} onChange={handleLuxuryChange} />
-              }
-              label="Luxury"
-            />
-          </Grid>
-        </Grid>
         </Grid>
         <Grid container spacing={2}>
           <Grid item xs={6}>
@@ -147,10 +153,7 @@ const PCConfigurator: React.FC<PCConfiguratorProps> = ({ initialPC }) => {
               title="Motherboard"
             >
               {availableMotherBoards.map((mb) => (
-                <MenuItem
-                  key={mb.name}
-                  value={mb.name}
-                >
+                <MenuItem key={mb.name} value={mb.name}>
                   {mb.name}
                 </MenuItem>
               ))}
@@ -164,26 +167,24 @@ const PCConfigurator: React.FC<PCConfiguratorProps> = ({ initialPC }) => {
               onChange={handleCoverCaseChange}
               title="Cover Case"
             >
-              <MenuItem value="Fractal Design Meshify C">
-                Fractal Design Meshify C
-              </MenuItem>
-              <MenuItem value="NZXT H700i">NZXT H700i</MenuItem>
-              <MenuItem value="Phanteks Eclipse P400A">
-                Phanteks Eclipse P400A
-              </MenuItem>
+              {coverCases.map((coverCase) => (
+                <MenuItem key={coverCase} value={coverCase}>
+                  {coverCase}
+                </MenuItem>
+              ))}
             </Select>
           </Grid>
           <Grid item xs={6}>
             <Select
-              value={
-                pc.powerUnit
-                  ? pc.powerUnit.powerSource.powerCapacity.toString()
-                  : ""
-              }
+              value={JSON.stringify(pc.powerUnit)}
               onChange={handlePowerUnitChange}
               title="Power Unit"
             >
-              {/* Add power unit options here */}
+              {powerUnits.map((unit, index) => (
+                    <MenuItem key={index} value={JSON.stringify(unit)}>
+                    {unit.powerSource.powerCapacity}W {unit.powerSource.currentProtection ? "with" : "without"} Current Protection
+                    </MenuItem>
+                ))}
             </Select>
           </Grid>
         </Grid>
