@@ -36,7 +36,7 @@ const CoolingUnitEditor: React.FC<CoolingUnitEditorProps> = ({
           p: 4,
         }}
       >
-        <CoolingUnitSelector initialValue={coolingUnits[0]} save={handleSave} limit={3} values={coolingUnits}/>
+        <CoolingUnitSelector initialValue={coolingUnits[0]} save={onSave} limit={3} values={coolingUnits}/>
       </Box>
     </Modal>
   );
