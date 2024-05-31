@@ -31,6 +31,7 @@ interface PowerUnit {
 }
 
 interface MotherBoard {
+    name: string;
     chipsetCompatibility: Chipset[];
     ramUnit: {
         slots: number;
