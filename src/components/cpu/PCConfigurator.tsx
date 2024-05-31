@@ -17,6 +17,7 @@ import { chipsets, intelI10, intelI9, rizenR3 } from "./Chipsets";
 import { motherBoards } from "./ModelBoards";
 import { coverCases } from "./CoverCases";
 import { powerUnits } from "./PowerUnits";
+import ComputerDetails from "./ComputerDetails";
 
 interface PCConfiguratorProps {
   initialPC: PC;
@@ -106,7 +107,7 @@ const PCConfigurator: React.FC<PCConfiguratorProps> = ({ initialPC }) => {
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={6}>
+      <Grid item xs={12} md={8} lg={6}>
         <Grid item>
           <Grid container spacing={2}>
             <Grid item xs={6}>
@@ -181,10 +182,12 @@ const PCConfigurator: React.FC<PCConfiguratorProps> = ({ initialPC }) => {
               title="Power Unit"
             >
               {powerUnits.map((unit, index) => (
-                    <MenuItem key={index} value={JSON.stringify(unit)}>
-                    {unit.powerSource.powerCapacity}W {unit.powerSource.currentProtection ? "with" : "without"} Current Protection
-                    </MenuItem>
-                ))}
+                <MenuItem key={index} value={JSON.stringify(unit)}>
+                  {unit.powerSource.powerCapacity}W{" "}
+                  {unit.powerSource.currentProtection ? "with" : "without"}{" "}
+                  Current Protection
+                </MenuItem>
+              ))}
             </Select>
           </Grid>
         </Grid>
@@ -195,32 +198,8 @@ const PCConfigurator: React.FC<PCConfiguratorProps> = ({ initialPC }) => {
           <Button>Submit</Button>
         </Grid>
       </Grid>
-      <Grid item xs={6}>
-        <Typography>Generated Computer:</Typography>
-        <Typography>CPU Architecture: {pc.cpuArchitecture}</Typography>
-        <Typography>Luxury: {pc.luxury ? "Yes" : "No"}</Typography>
-        <Typography>
-          Chipset: {pc.chipset ? pc.chipset.architecture : ""}
-        </Typography>
-        <Typography>
-          Motherboard:{" "}
-          {pc.motherBoard
-            ? pc.motherBoard.chipsetCompatibility[0].architecture
-            : ""}
-        </Typography>
-        <Typography>Cover Case: {pc.coverCase}</Typography>
-        <Typography>Cooling Units:</Typography>
-        {pc.powerUnit.coolingUnits.map((unit, index) => (
-          <Typography key={index}>
-            Unit {index + 1}:
-            <br />
-            Power: {unit.power}
-            <br />
-            Dissipation: {unit.dissipation}
-            <br />
-            Noise: {unit.noise}
-          </Typography>
-        ))}
+      <Grid item xs={12} md={4} lg={6}>
+        <ComputerDetails pc={pc} />
       </Grid>
       <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
         <Box
