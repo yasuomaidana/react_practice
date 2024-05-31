@@ -1,16 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   Grid,
   Checkbox,
   Select,
   MenuItem,
   Button,
-  Modal,
-  Box,
   SelectChangeEvent,
   FormControlLabel,
 } from "@mui/material";
-import PC, { PowerUnit } from "./PCModel";
+import PC, { CoolingUnit, PowerUnit } from "./PCModel";
 import CoolingUnitEditor from "./CoolingUnitEditor";
 import { chipsets, intelI10, intelI9, rizenR3 } from "./Chipsets";
 import { motherBoards } from "./ModelBoards";
@@ -68,7 +66,7 @@ const PCConfigurator: React.FC<PCConfiguratorProps> = ({ initialPC }) => {
   };
 
   const handleCoolingUnitsSave = (
-    coolingUnits: PC["powerUnit"]["coolingUnits"]
+    coolingUnits: CoolingUnit[]
   ) => {
     setPc({
       ...pc,
@@ -77,14 +75,14 @@ const PCConfigurator: React.FC<PCConfiguratorProps> = ({ initialPC }) => {
         coolingUnits,
       },
     });
-    setModalOpen(false);
   };
 
   const handlePowerUnitChange = (e: SelectChangeEvent<string>) => {
-    const powerUnit: PowerUnit = JSON.parse(e.target.value);
+    const powerUnitString = e.target.value;
+    const powerUnit = powerUnits.find((unit) => powerUnitToString(unit) === powerUnitString);
     setPc({
       ...pc,
-      powerUnit,
+      powerUnit: powerUnit || powerUnits[0],
     });
   };
 
@@ -107,6 +105,10 @@ const PCConfigurator: React.FC<PCConfiguratorProps> = ({ initialPC }) => {
   const closeModal = () =>{
     setModalOpen(false);
   }
+
+  const powerUnitToString = useCallback((powerUnit: PowerUnit) => {
+    return `${powerUnit.powerSource.powerCapacity}W ${powerUnit.powerSource.currentProtection ? 'with' : 'without'} Current Protection`;
+  }, []);
 
   return (
     <Grid container spacing={2}>
@@ -180,12 +182,12 @@ const PCConfigurator: React.FC<PCConfiguratorProps> = ({ initialPC }) => {
           </Grid>
           <Grid item xs={6}>
             <Select
-              value={JSON.stringify(pc.powerUnit)}
+              value={powerUnitToString(pc.powerUnit)}
               onChange={handlePowerUnitChange}
               title="Power Unit"
             >
               {powerUnits.map((unit, index) => (
-                <MenuItem key={index} value={JSON.stringify(unit)}>
+                <MenuItem key={index} value={powerUnitToString(unit)}>
                   {unit.powerSource.powerCapacity}W{" "}
                   {unit.powerSource.currentProtection ? "with" : "without"}{" "}
                   Current Protection
@@ -195,7 +197,7 @@ const PCConfigurator: React.FC<PCConfiguratorProps> = ({ initialPC }) => {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <Button onClick={handleCoolingUnitsEdit}>Edit Cooling Units</Button>
+          <Button onClick={handleCoolingUnitsEdit} disabled={!pc.powerUnit}>Edit Cooling Units</Button>
         </Grid>
         <Grid item xs={12}>
           <Button>Submit</Button>
@@ -204,7 +206,7 @@ const PCConfigurator: React.FC<PCConfiguratorProps> = ({ initialPC }) => {
       <Grid item xs={12} md={4} lg={6}>
         <ComputerDetails pc={pc} />
       </Grid>
-      <CoolingUnitEditor pc={pc} onSave={handleCoolingUnitsSave} 
+      <CoolingUnitEditor onSave={handleCoolingUnitsSave} 
       open={modalOpen} onClose={closeModal}/>
     </Grid>
   );
