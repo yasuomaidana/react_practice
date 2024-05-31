@@ -1,41 +1,24 @@
 import React, { useState } from "react";
-import PC from "./PCModel";
-import { Box, Button, Grid, Modal, TextField, Typography } from "@mui/material";
+import PC, { CoolingUnit } from "./PCModel";
+import { Box, Modal } from "@mui/material";
+import CoolingUnitSelector from "./CoolingUnitSelector";
+import { coolingUnits } from "./CoolingUnits";
 
 interface CoolingUnitEditorProps {
-  pc: PC;
-  onSave: (coolingUnits: PC["powerUnit"]["coolingUnits"]) => void;
+  onSave: (coolingUnits: CoolingUnit[]) => void;
   onClose: () => void;
   open: boolean;
 }
 
 const CoolingUnitEditor: React.FC<CoolingUnitEditorProps> = ({
-  pc,
   onSave,
   onClose,
   open
 }) => {
-  const [units, setUnits] = useState<PC["powerUnit"]["coolingUnits"]>(
-    pc.powerUnit.coolingUnits
-  );
-
-  const handleAddUnit = () => {
-    setUnits([
-      ...units,
-      {
-        power: 0,
-        dissipation: 0,
-        noise: 0,
-      },
-    ]);
-  };
-
-  const handleRemoveUnit = (index: number) => {
-    setUnits(units.filter((unit, i) => i !== index));
-  };
-
-  const handleSave = () => {
-    onSave(units);
+  
+  const handleSave = (coolingUnits:CoolingUnit[]) => {
+    onSave(coolingUnits);
+    onClose();
   };
 
   return (
@@ -53,63 +36,7 @@ const CoolingUnitEditor: React.FC<CoolingUnitEditorProps> = ({
           p: 4,
         }}
       >
-        <Grid container spacing={2}>
-          {units.map((unit, index) => (
-            <Grid item xs={12} key={index}>
-              <Typography>Unit {index + 1}:</Typography>
-              <TextField
-                type="number"
-                value={unit.power}
-                onChange={(e) =>
-                  setUnits(
-                    units.map((u, i) =>
-                      i === index ? { ...u, power: Number(e.target.value) } : u
-                    )
-                  )
-                }
-                label="Power"
-              />
-              <TextField
-                type="number"
-                value={unit.dissipation}
-                onChange={(e) =>
-                  setUnits(
-                    units.map((u, i) =>
-                      i === index
-                        ? { ...u, dissipation: Number(e.target.value) }
-                        : u
-                    )
-                  )
-                }
-                label="Dissipation"
-              />
-              <TextField
-                type="number"
-                value={unit.noise}
-                onChange={(e) =>
-                  setUnits(
-                    units.map((u, i) =>
-                      i === index ? { ...u, noise: Number(e.target.value) } : u
-                    )
-                  )
-                }
-                label="Noise"
-              />
-              <Button
-                variant="contained"
-                onClick={() => handleRemoveUnit(index)}
-              >
-                Remove
-              </Button>
-            </Grid>
-          ))}
-          <Button variant="contained" onClick={handleAddUnit}>
-            Add Unit
-          </Button>
-          <Button variant="contained" onClick={handleSave}>
-            Save
-          </Button>
-        </Grid>
+        <CoolingUnitSelector initialValue={coolingUnits[0]} save={handleSave} limit={3} values={coolingUnits}/>
       </Box>
     </Modal>
   );
