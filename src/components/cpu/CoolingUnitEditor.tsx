@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import PC, { CoolingUnit } from "./PCModel";
+import React from "react";
+import { CoolingUnit } from "./PCModel";
 import { Box, Modal } from "@mui/material";
 import CoolingUnitSelector from "./CoolingUnitSelector";
 import { coolingUnits } from "./CoolingUnits";
