@@ -16,11 +16,13 @@ const LoginRequest = () => {
                 headers: {
                     remember: loginRequest.remember
                 }
-            });
+            }).then(response => response.data);
 
             const { access_token, refresh_token } = response;
             localStorage.setItem("access_token", access_token);
-            localStorage.setItem("refresh_token", refresh_token);
+            if(refresh_token){
+                localStorage.setItem("refresh_token", refresh_token);
+            }
             dispatch(login({username:response.username}));
             return true;
         }catch(err){
@@ -43,9 +45,10 @@ export const initializeAuht = () => (dispatch:any) => {
 };
 
 export const logout_request = () => (dispatch:any) => {
-    axios.post(process.env.REACT_APP_API_BACKEND + "/logout", {
-        refreshToken: localStorage.getItem('refresh_token')
-    }).catch(error => {console.log(error);return null;})
+    const refresh_token = localStorage.getItem('refresh_token')
+    const body = refresh_token ? { refreshToken: refresh_token } : {};
+    axios.post(process.env.REACT_APP_API_BACKEND + "/logout",body)
+    .catch(error => {console.log(error);return null;})
     .finally(() => {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
