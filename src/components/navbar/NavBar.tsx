@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../state/store";
 import { logout } from "../../state/features/authSlice";
@@ -103,6 +104,7 @@ const NavBar = () => {
           <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
           <MenuItem onClick={handleMenuClose}>Account</MenuItem>
           <MenuItem onClick={handleMenuClose}>Dashboard</MenuItem>
+          <MenuItem component={NavLink} to="/user-activity" onClick={handleMenuClose}>My Activity</MenuItem>
           <MenuItem onClick={()=>{handleLogout();handleMenuClose()}}>Logout</MenuItem>
         </Menu>
         <LoginModal open={loginOpen} handleClose={handleLoginClose} handleRegisterOpen={handleRegisterOpen}/>

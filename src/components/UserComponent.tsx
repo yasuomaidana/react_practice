@@ -10,7 +10,7 @@ const UserComponent = () => {
     useEffect(() => {
         fetch('http://localhost:8000/user')
             .then(response => response.json())
-            .then(data => setUserData(data))
+            .then(data => setUserData(data)).catch(error => console.error(error))
     }, [])
   return (
     <div>

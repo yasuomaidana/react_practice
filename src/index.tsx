@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.scss';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { store } from './state/store';
+import NavBar from './components/navbar/NavBar';
+import { BrowserRouter } from 'react-router-dom';
+import AppRoutes from './AppRoutes';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -12,7 +14,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App /> 
+      <BrowserRouter>
+        <NavBar />
+        <AppRoutes />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>
 );
