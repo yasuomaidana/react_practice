@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.10.5",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.18",
@@ -17,8 +18,10 @@
     "@types/react-dom": "^18.3.0",
     "@types/react-redux": "^7.1.33",
     "@types/redux": "^3.6.0",
+    "apollo-link-error": "^1.1.13",
     "axios": "^1.6.8",
     "dotenv": "^16.4.5",
+    "graphql": "^16.8.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-redux": "^9.1.2",
