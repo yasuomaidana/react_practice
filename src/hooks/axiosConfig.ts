@@ -33,7 +33,7 @@ axios.interceptors.response.use(
                     originalRequest.headers.Authorization = `Bearer ${new_access_token}`;
                     return axios(originalRequest);
                 } catch (err) {
-                    // Handle refresh token error
+                    return Promise.reject(error);
                 }
             }
         }

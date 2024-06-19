@@ -7,6 +7,8 @@ import { store } from './state/store';
 import NavBar from './components/navbar/NavBar';
 import { BrowserRouter } from 'react-router-dom';
 import AppRoutes from './AppRoutes';
+import { ApolloProvider } from '@apollo/client';
+import apolloClient from './hooks/graphql/apolloClient';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -14,10 +16,12 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <NavBar />
-        <AppRoutes />
-      </BrowserRouter>
+      <ApolloProvider client={apolloClient}>
+        <BrowserRouter>
+          <NavBar />
+          <AppRoutes />
+        </BrowserRouter>
+      </ApolloProvider>
     </Provider>
   </React.StrictMode>
 );

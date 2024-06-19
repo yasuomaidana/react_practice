@@ -4,12 +4,13 @@ import App from './App'
 import LinearPlot from './components/LinearPlot'
 import ReduxExample from './components/ReduxExample'
 import UserComponent from './components/UserComponent'
+import UserActivityPage from './components/UserActivityPage/UserActivityPage'
 
 const AppRoutes = () => {
   return (
     <Routes>
         <Route path="/" element={<App/>} />
-        <Route path="/user-activity" element={<App/>} />
+        <Route path="/user-activity" element={<UserActivityPage/>} />
         <Route path="/linear-plot" element={<LinearPlot/>} />
         <Route path="/redux-example" element={<ReduxExample/>} />
         <Route path="/user-component" element={<UserComponent/>} />
