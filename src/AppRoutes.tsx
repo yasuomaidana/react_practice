@@ -9,7 +9,7 @@ import UserActivityPage from './components/UserActivityPage/UserActivityPage'
 const AppRoutes = () => {
   return (
     <Routes>
-        <Route path="/" element={<App/>} />
+        <Route path="/" element={<>Home</>} />
         <Route path="/user-activity" element={<UserActivityPage/>} />
         <Route path="/linear-plot" element={<LinearPlot/>} />
         <Route path="/redux-example" element={<ReduxExample/>} />

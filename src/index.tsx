@@ -2,13 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.scss';
 import reportWebVitals from './reportWebVitals';
+import App from './App';
 import { Provider } from 'react-redux';
 import { store } from './state/store';
-import NavBar from './components/navbar/NavBar';
-import { BrowserRouter } from 'react-router-dom';
-import AppRoutes from './AppRoutes';
-import { ApolloProvider } from '@apollo/client';
-import apolloClient from './hooks/graphql/apolloClient';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -16,12 +12,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ApolloProvider client={apolloClient}>
-        <BrowserRouter>
-          <NavBar />
-          <AppRoutes />
-        </BrowserRouter>
-      </ApolloProvider>
+      <App/>
     </Provider>
   </React.StrictMode>
 );

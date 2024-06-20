@@ -3,8 +3,11 @@ import './App.scss';
 import { useDispatch } from 'react-redux';
 import { initializeAuht } from './hooks/auth_requests';
 import "./hooks/axiosConfig";
-import PCConfigurator from './components/cpu/PCConfigurator';
-import { initialPC } from './components/cpu/InitialPC';
+import { ApolloProvider } from '@apollo/client';
+import { BrowserRouter } from 'react-router-dom';
+import NavBar from './components/navbar/NavBar';
+import AppRoutes from './AppRoutes';
+import apolloClient from './hooks/graphql/apolloClient';
 
 function App() {
   const dispatch = useDispatch(); // Access the dispatch function
@@ -13,7 +16,12 @@ function App() {
   }, [dispatch]);
   return (
     <div className="App">
-      <PCConfigurator initialPC={initialPC}/>
+      <ApolloProvider client={apolloClient}>
+        <BrowserRouter>
+          <NavBar />
+          <AppRoutes />
+        </BrowserRouter>
+      </ApolloProvider>
     </div>
   );
 }
