@@ -25,8 +25,7 @@ const errorLink = onError(({ operation, graphQLErrors, forward }) => {
     graphQLErrors.filter((error) => error.message === 'User not authenticated').map((error) => {
       if (localStorage.getItem('access_token')){
         error.message = 'Refreshing token';
-      }
-      return refreshToken(localStorage.getItem('refresh_token') || '')
+        return refreshToken(localStorage.getItem('refresh_token') || '')
         .then((newAccessToken) => {
           if (newAccessToken) {
             operation.setContext({
@@ -38,10 +37,13 @@ const errorLink = onError(({ operation, graphQLErrors, forward }) => {
             return forward(operation);
           } else {
             logout_request();
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
             console.log('No new access token obtained');
             return;
           }
         });
+      }
     });
   }
 });
