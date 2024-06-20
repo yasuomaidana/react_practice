@@ -3,11 +3,16 @@ import { USER_ACTIVITY } from '../../hooks/graphql/queries/user';
 import { useQuery } from '@apollo/client';
 
 const UserActivityPage = () => {
-    const { data, error, loading } = useQuery(USER_ACTIVITY, {
-        variables: { username: 'current_username' },
-      });    
-      if (loading) return <p>Loading...</p>;
-      if (error) return <p>Error: {error.message}</p>;
+  var { data, error, loading, refetch } = useQuery(USER_ACTIVITY, {
+    notifyOnNetworkStatusChange: true,
+  });    
+    if (loading) return <p>Loading...</p>;
+    if (error?.message === "Refreshing token"){
+      refetch(USER_ACTIVITY);
+    }
+    if (error) {
+      return <p>Error: {error.message}</p>
+    };
     
       return (
         <div>
