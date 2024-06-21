@@ -1,16 +1,15 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import App from './App'
 import LinearPlot from './components/LinearPlot'
 import ReduxExample from './components/ReduxExample'
 import UserComponent from './components/UserComponent'
-import UserActivityPage from './components/UserActivityPage/UserActivityPage'
+import VirtualPostApp from './components/VirtualPost/VirtualPostApp'
 
 const AppRoutes = () => {
   return (
     <Routes>
         <Route path="/" element={<>Home</>} />
-        <Route path="/user-activity" element={<UserActivityPage/>} />
+        <Route path="/user-activity" element={<VirtualPostApp/>} />
         <Route path="/linear-plot" element={<LinearPlot/>} />
         <Route path="/redux-example" element={<ReduxExample/>} />
         <Route path="/user-component" element={<UserComponent/>} />
