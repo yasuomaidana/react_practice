@@ -1,5 +1,5 @@
 import React from 'react';
-import PostItComponent from './PostItComponent' ; 
+import PostItCard from './PostItCard' ; 
 import { PostIt } from './PostIt';
 import Pagination from './Pagination';
 
@@ -16,9 +16,7 @@ const PostItList : React.FC<PostItListProps> = ({ postIts, currentPage, totalPag
       <h2>PostIts:</h2>
       <ul>
       {postIts.map((postIt) => (
-        <li key={postIt.id}>
-          <PostItComponent {...postIt} />
-        </li>
+        <PostItCard {...postIt} />
       ))}
       </ul>
       <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />

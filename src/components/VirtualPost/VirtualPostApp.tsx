@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { USER_ACTIVITY } from "../../hooks/graphql/queries/user";
 import PostItList from "./PostItList";
 import Pagination from "./Pagination";
+import { Card, CardContent, Grid } from "@mui/material";
 
 const VirtualPostApp = () => {
   const [postsPage, setPostsPage] = useState(1);
@@ -23,32 +24,37 @@ const VirtualPostApp = () => {
   console.log("data", userActivity.comments);
 
   return (
-    <div>
-      <h1>My Activity</h1>
-      <PostItList
+    <Grid container spacing={3}>
+      {/* Left Side: My Activity */}      
+      <Grid item xs={6}>
+        <h1>My Activity</h1>
+        <PostItList
         postIts={userActivity.postIts.content}
         currentPage={postsPage}
         totalPages={userActivity.postIts.totalPages}
         onPageChange={setPostsPage}
       />
-      <h2>Comments:</h2>
-      <div>
-        <h2>PostIts:</h2>
-        <ul>
-          {userActivity.comments.content.map((comment:any) => (
-            <li key={comment.id}>
-                {comment.title}
-            </li>
-          ))}
-        </ul>
-        <Pagination
-          currentPage={0}
-          totalPages={0}
-          onPageChange={()=>{}}
-        />
-      </div>
-    </div>
-  );
-};
-
+      </Grid>      
+      {/* Right Side: Comments */}      
+      <Grid item xs={6}>
+      <h2>Comments:</h2>          
+          {/* Use Cards to display comments */}
+          <div>
+            {userActivity.comments.content.map((comment: any) => (
+              <Card key={comment.id}>
+                <CardContent>
+                  <h3>{comment.title}</h3>
+                  <p>{comment.content}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          <Pagination
+            currentPage={commentsPage}  // Use commentsPage for Comments pagination
+            totalPages={userActivity.comments.totalPages} // Set appropriate totalPages
+            onPageChange={setCommentsPage}
+          />
+      </Grid>    
+    </Grid>  );
+ };   
 export default VirtualPostApp;
